@@ -4,14 +4,14 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Menu from './src/view/screens/Menu';
-import Story from './src/view/screens/Story';
-import Settings from './src/view/screens/Settings';
+import Menu from './src/screens/Menu';
+import Story from './src/screens/Story';
+import Settings from './src/screens/Settings';
+import Achievements from './src/screens/Achievements';
 
 const Stack = createStackNavigator();
 
 export default function App() {
-
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Menu">
@@ -26,6 +26,10 @@ export default function App() {
         <Stack.Screen 
           name="Continue Story"
           component={Story}
+        />
+        <Stack.Screen 
+          name="Achievements"
+          component={Achievements}
         />
         <Stack.Screen 
           name="Settings"
