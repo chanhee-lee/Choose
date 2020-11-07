@@ -1,11 +1,31 @@
 import React from 'react';
-import { Text, View } from 'react-native';
-import Tree from  './Tree';
+import { Text, StyleSheet, View } from 'react-native';
+import MenuButton from '../components/MenuButton';
 
-export default function Menu() {
-  return (
-      <View>
-        <Text>Menu</Text>
-      </View>
+const Menu = (props) => {
+  return ( 
+    <View style={styles.menuContainer}>
+      <Text>CHOOSE</Text>
+      <MenuButton
+        onPress={() => props.navigation.navigate('New Story')}
+        title="New Story"
+      />
+      <MenuButton
+        onPress={() => props.navigation.navigate('Continue Story')}
+        title="Continue Story"
+      />
+      <MenuButton 
+        onPress={() => props.navigation.navigate('Settings')}
+        title="Settings"
+      />
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  menuContainer: {
+
+  }
+})
+
+export default Menu;

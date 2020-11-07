@@ -1,8 +1,10 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-export default function Settings() {
+const Settings = () => {
   return (
-    <Text>Settings</Text>
+    <Text>SETTINGS</Text>
   );
 }
+
+export default Settings;
