@@ -1,33 +1,32 @@
 import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { View, Text, SafeAreaView, StyleSheet, FlatList, Button } from 'react-native';
-import Word from '../components/Word';
-
-const DATA = [];
+import React, { useState } from 'react';
+import { View, StyleSheet, } from 'react-native';
+import Log from '../components/Log';
+import Choice from '../components/Choice';
 
 const Story = () => {
+  const [logs, setLogs] = useState([]);
 
-  const addLabel = () => {}
-
-  const renderItem = ({item}) => {
-    return (
-      <Word text={item.text} />
-    );
-  }
+  const addWordHandler = (word) => {
+    setLogs(prevLogs => {
+      return [...prevLogs, word];
+    });
+  };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <FlatList 
-        data={DATA}
-        renderItem={renderItem}
+    <View style={styles.container}>
+      <Log 
+        data={logs}
       />
-      <Button 
-        title= "b1"
+      <Choice 
+        label="Choice1"
+        onPress={addWordHandler}
       />
-      <Button 
-        title="b2"
+      <Choice 
+        label="Choice2"
+        onPress={addWordHandler}
       />
-    </SafeAreaView>
+    </View>
   )
 }
 

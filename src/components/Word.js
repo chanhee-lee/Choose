@@ -1,16 +1,16 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-const Word = ({text}) => {
+const Word = ({label}) => {
   return (
     <View>
-      <Text style={styles.text}>{text}</Text>
+      <Text style={styles.label}>{label}</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  text: {
+  label: {
     fontSize: 48,
   }
 })
