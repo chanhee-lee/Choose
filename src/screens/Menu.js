@@ -91,7 +91,9 @@ const Menu = (props) => {
 }
 const styles = StyleSheet.create({
   menuContainer: {
-
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center"
   }
 })
 
