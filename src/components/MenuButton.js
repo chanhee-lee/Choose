@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   text: {
     
   }
-})
+});
 
 
 export default MenuButton;
