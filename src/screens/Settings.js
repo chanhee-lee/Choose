@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-const Settings = () => {
+const Settings = ({navigation, route}) => {
   return (
     <Text>SETTINGS</Text>
   );
