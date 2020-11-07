@@ -1,8 +1,10 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-export default function Story() {
+const Story = () => {
   return (
-    <Text>Story</Text>
-  );
+    <Text>STORY</Text>
+  )
 }
+
+export default Story;
