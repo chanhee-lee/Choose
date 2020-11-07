@@ -13,51 +13,58 @@ import TreeView from 'react-native-final-tree-view';
 const state = {
     data: [
         {
-            id: 'Parent1',
-            name: 'Parent1',
+            id: '0',
+            name: 'Choose.',
+            // font: null, 
+            // fontColor: null,
+            // fontSize: null,
+            // fontWeight: null,
+            // isNarration: null, 
+            // savePoint: null, 
             children: [
                 {
-                    id: 'child1',
-                    name: 'child1',
+                    id: '00',
+                    name: 'Sleep',
+                    children: [{id: '00', name: 'Sleep'}]
+                },
+                {
+                    id: '01',
+                    name: 'Wake',
                     children: [
                         {
-                            id: 'child11',
-                            name: 'child11',
+                            id: "010", 
+                            name: "window",
                             children: [
                                 {
-                                    id: 'child111',
-                                    name: 'child111',
-                                },
-                            ],
+                                    id: "0100",
+                                    name: "dark"
+                                }
+                            ]
                         },
                         {
-                            id: 'child12',
-                            name: 'child12',
-                        },
-                    ],
+                            id:"011",
+                            name: "door",
+                            children: [
+                                {
+                                    id: "0110",
+                                    name: "locked",
+                                    children: [
+                                        {
+                                            id: "01100",
+                                            name:  "drawer"
+                                        },
+                                        {
+                                            id: "01101",
+                                            name: "wardrobe"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
                 },
             ],
-        },
-        {
-            id: 'Parent2',
-            name: 'Parent2',
-            children: [
-                {
-                    id: 'child2',
-                    name: 'child2',
-                    children: [
-                        {
-                            id: 'child21',
-                            name: 'child21',
-                        },
-                        {
-                            id: 'child22',
-                            name: 'child22',
-                        },
-                    ],
-                },
-            ],
-        },
+        }
     ],
 };
 
