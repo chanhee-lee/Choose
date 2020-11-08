@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, View, Alert } from 'react-native';
 import MenuButton from '../components/MenuButton';
+import Color from '../constants';
 
 const Menu = (props) => {
   // States 
@@ -58,7 +59,7 @@ const Menu = (props) => {
 
   return (
     <View style={styles.menuContainer}>
-      <Text>CHOOSE</Text>
+      <Text style={styles.title}>CHOOSE</Text>
       <MenuButton
         onPress={newStory}
         title="New Story"
@@ -93,7 +94,15 @@ const styles = StyleSheet.create({
   menuContainer: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    backgroundColor: Color.primary
+  },
+  title: {
+    fontFamily: "sans-serif",
+    fontSize: 48,
+    fontStyle: "italic",
+    color: Color.secondary,
+    margin: 50
   }
 })
 
