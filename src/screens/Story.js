@@ -2,8 +2,9 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, } from 'react-native';
 import Log from '../components/Log';
-import Choice from '../components/Choice';
+import Choices from '../components/Choices';
 import StoryMap from '../model/Tree';
+import Color from '../constants';
 
 const Story = () => {
   const [logs, setLogs] = useState([]);
@@ -24,12 +25,11 @@ const Story = () => {
       <Log
         data={logs}
       />
-      <Choice
+      <Choices
         children={currentNode?.children}
         onPress={choiceHandler}
         storyMap={StoryMap}
       />
-
     </View>
   )
 }
@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: StatusBar.currentHeight || 0,
+    backgroundColor: Color.primary
   },
 })
 
