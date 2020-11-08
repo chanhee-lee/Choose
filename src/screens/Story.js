@@ -15,7 +15,6 @@ const Story = () => {
   }
 
   const addWordHandler = (node) => {
-    console.log(node);
     setLogs(prevLogs => {
       return [...prevLogs, node];
     });

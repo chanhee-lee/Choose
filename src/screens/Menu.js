@@ -2,6 +2,14 @@ import React, { useState } from 'react';
 import { Text, StyleSheet, View, Alert } from 'react-native';
 import MenuButton from '../components/MenuButton';
 import Color from '../constants';
+import {
+  useFonts,
+  Cabin_500Medium,
+  Cabin_500Medium_Italic,
+  Cabin_700Bold,
+  Cabin_700Bold_Italic
+} from '@expo-google-fonts/cabin';
+import { AppLoading } from 'expo';
 
 const Menu = (props) => {
   // States 
@@ -12,10 +20,17 @@ const Menu = (props) => {
 
   // Helper Functions
   function resetGame() {
-    setDeathCounter(0); 
+    setDeathCounter(0);
     setSettings({});
     setCheckpoint({});
   }
+
+  let [fontsLoaded] = useFonts({
+    Cabin_500Medium,
+    Cabin_500Medium_Italic,
+    Cabin_700Bold,
+    Cabin_700Bold_Italic
+  });
 
   function isEmpty(obj) {
     return Object.keys(obj).length === 0;
@@ -34,16 +49,18 @@ const Menu = (props) => {
             onPress: () => reset = false,
             style: "cancel"
           },
-          { text: "OK", 
+          {
+            text: "OK",
             onPress: () => {
               resetGame();
               props.navigation.navigate('New Story', {
                 deathCounter: deathCounter,
                 setDeathCounter: setDeathCounter,
-                checkpoint: checkpoint, 
+                checkpoint: checkpoint,
                 setCheckpoint: setCheckpoint
               })
-          }}
+            }
+          }
         ],
         { cancelable: false }
       )
@@ -51,43 +68,48 @@ const Menu = (props) => {
       props.navigation.navigate('New Story', {
         deathCounter: deathCounter,
         setDeathCounter: setDeathCounter,
-        checkpoint: checkpoint, 
+        checkpoint: checkpoint,
         setCheckpoint: setCheckpoint
       })
     }
   }
 
   return (
-    <View style={styles.menuContainer}>
-      <Text style={styles.title}>CHOOSE</Text>
-      <MenuButton
-        onPress={newStory}
-        title="New Story"
-      />
-      <MenuButton
-        onPress={() => props.navigation.navigate('Continue Story', {
-          deathCounter: deathCounter,
-          setDeathCounter: setDeathCounter,
-          checkpoint: checkpoint, 
-          setCheckpoint: setCheckpoint
-        })}
-        title="Continue Story"
-      />
-      <MenuButton
-        onPress={() => props.navigation.navigate('Achievements', {
-          achievements: achievements,
-          setAchievements: setAchievements
-        })}
-        title="Achievements"
-      />
-      <MenuButton
-        onPress={() => props.navigation.navigate('Settings', {
-          settings: settings,
-          setSettings: setSettings
-        })}
-        title="Settings"
-      />
-    </View>
+    !fontsLoaded ? <AppLoading /> :
+      <View style={styles.menuContainer}>
+        <Text style={styles.title}>CHOOSE</Text>
+        <MenuButton
+          onPress={newStory}
+          title="New Story"
+          style={styles.button}
+        />
+        <MenuButton
+          onPress={() => props.navigation.navigate('Continue Story', {
+            deathCounter: deathCounter,
+            setDeathCounter: setDeathCounter,
+            checkpoint: checkpoint,
+            setCheckpoint: setCheckpoint
+          })}
+          style={styles.button}
+          title="Continue Story"
+        />
+        <MenuButton
+          onPress={() => props.navigation.navigate('Achievements', {
+            achievements: achievements,
+            setAchievements: setAchievements
+          })}
+          style={styles.button}
+          title="Achievements"
+        />
+        <MenuButton
+          onPress={() => props.navigation.navigate('Settings', {
+            settings: settings,
+            setSettings: setSettings
+          })}
+          style={styles.button}
+          title="Settings"
+        />
+      </View>
   );
 }
 const styles = StyleSheet.create({
@@ -95,14 +117,17 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: Color.primary
+    backgroundColor: Color.primary,
+    fontFamily: "Cabin_500Medium_Italic"
   },
   title: {
-    fontFamily: "sans-serif",
+    fontFamily: "Cabin_500Medium_Italic",
     fontSize: 48,
-    fontStyle: "italic",
     color: Color.secondary,
     margin: 50
+  },
+  button: {
+    fontFamily: "Cabin_500Medium",
   }
 })
 

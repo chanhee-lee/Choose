@@ -4,7 +4,6 @@ import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 const Choice = ({ children, onPress, storyMap }) => { // Receives node, returns children as buttons
   let choiceList = children?.map(function (nodeRef) {
     let node = storyMap.get(nodeRef);
-    console.log("NODE: ", node); 
     return (
       <TouchableOpacity onPress={() => onPress(node)} style={styles.button}>
         <Text>{node.label}</Text>
