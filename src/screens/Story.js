@@ -6,7 +6,7 @@ import Choices from '../components/Choices';
 import StoryMap from '../model/Tree';
 import Color from '../constants';
 
-const Story = () => {
+const Story = ({navigation, route}) => {
   const [logs, setLogs] = useState([]);
   const [currentNode, setCurrentNode] = useState(StoryMap.get('0'));
 
@@ -24,11 +24,13 @@ const Story = () => {
     <View style={styles.container}>
       <Log
         data={logs}
+        font={route.params.font}
       />
       <Choices
         children={currentNode?.children}
         onPress={choiceHandler}
         storyMap={StoryMap}
+        font={route.params.font}
       />
     </View>
   )

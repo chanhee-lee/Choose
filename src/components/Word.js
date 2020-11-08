@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import Color from '../constants';
 
-const Word = ({label}) => {
+const Word = ({label, font}) => {
   return (
     <View>
-      <Text style={styles.text}>{label}</Text>
+      <Text style={{...styles.text, ...font}}>{label}</Text>
     </View>
   )
 }

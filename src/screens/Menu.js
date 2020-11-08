@@ -69,7 +69,8 @@ const Menu = (props) => {
         deathCounter: deathCounter,
         setDeathCounter: setDeathCounter,
         checkpoint: checkpoint,
-        setCheckpoint: setCheckpoint
+        setCheckpoint: setCheckpoint,
+        font: styles.cabinFont
       })
     }
   }
@@ -88,7 +89,8 @@ const Menu = (props) => {
             deathCounter: deathCounter,
             setDeathCounter: setDeathCounter,
             checkpoint: checkpoint,
-            setCheckpoint: setCheckpoint
+            setCheckpoint: setCheckpoint,
+            font: Cabin_500Medium
           })}
           style={styles.button}
           title="Continue Story"
@@ -96,7 +98,8 @@ const Menu = (props) => {
         <MenuButton
           onPress={() => props.navigation.navigate('Achievements', {
             achievements: achievements,
-            setAchievements: setAchievements
+            setAchievements: setAchievements,
+            font: Cabin_500Medium
           })}
           style={styles.button}
           title="Achievements"
@@ -104,7 +107,8 @@ const Menu = (props) => {
         <MenuButton
           onPress={() => props.navigation.navigate('Settings', {
             settings: settings,
-            setSettings: setSettings
+            setSettings: setSettings,
+            font: Cabin_500Medium
           })}
           style={styles.button}
           title="Settings"
@@ -128,6 +132,9 @@ const styles = StyleSheet.create({
   },
   button: {
     fontFamily: "Cabin_500Medium",
+  },
+  cabinFont: {
+    fontFamily: "Cabin_500Medium"
   }
 })
 

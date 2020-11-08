@@ -3,12 +3,12 @@ import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import Color from '../constants';
 import Divider from '../components/Divider';
 
-const Choices = ({ children, onPress, storyMap }) => { // Receives node, returns children as buttons
+const Choices = ({ children, onPress, storyMap, font }) => { // Receives node, returns children as buttons
   let choiceList = children?.map(function (nodeRef) {
     let node = storyMap.get(nodeRef);
     return (
       <TouchableOpacity onPress={() => onPress(node)} style={styles.button}>
-        <Text style={styles.text}>{node.label}</Text>
+        <Text style={{...styles.text, ...font}}>{node.label}</Text>
       </TouchableOpacity>
     )
   });
