@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import Color from '../constants';
 
 const MenuButton = ({onPress, title}) => {
   return (
@@ -11,16 +12,17 @@ const MenuButton = ({onPress, title}) => {
 
 const styles = StyleSheet.create({
   button: {
-    width: "30%",
     height: 55,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "green",
-    margin: 10
+    backgroundColor: Color.primary,
+    margin: 5
   },
   text: {
-    
+    fontFamily: "sans-serif",
+    fontSize: 32,
+    color: Color.secondary
   }
 });
 
