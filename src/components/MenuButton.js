@@ -13,7 +13,6 @@ const MenuButton = ({ onPress, title, style }) => {
 const styles = StyleSheet.create({
   button: {
     height: 55,
-    borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: Color.primary,

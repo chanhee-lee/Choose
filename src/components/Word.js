@@ -1,17 +1,19 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import Color from '../constants';
 
 const Word = ({label}) => {
   return (
     <View>
-      <Text style={styles.label}>{label}</Text>
+      <Text style={styles.text}>{label}</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  label: {
-    fontSize: 48,
+  text: {
+    fontSize: 40,
+    color: Color.secondary
   }
 })
 

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { SafeAreaView, StyleSheet, FlatList, Button } from 'react-native';
 import Word from './Word';
+import Color from '../constants';
 
 const Log = (props) => {
   let fList;
@@ -30,7 +31,9 @@ const styles = StyleSheet.create({
     flex: 1,
     height: "70%",
     width: "100%",
-    backgroundColor: "grey"
+    backgroundColor: Color.primary,
+    paddingVertical: 10,
+    paddingHorizontal: 20
   }
 })
 
