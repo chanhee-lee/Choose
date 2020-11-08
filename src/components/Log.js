@@ -3,19 +3,19 @@ import { SafeAreaView, StyleSheet, FlatList, Button } from 'react-native';
 import Word from './Word';
 import Color from '../constants';
 
-const Log = (props) => {
+const Log = ({data, font}) => {
   let fList;
 
   const renderItem = ({item}) => {
     return (
-      <Word label={item.label} />
+      <Word label={item.label} font={font}/>
     );
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <FlatList 
-        data={props.data}
+        data={data}
         renderItem={renderItem}
         ref={flatList => { fList = flatList; }}
         onContentSizeChange={() => {
