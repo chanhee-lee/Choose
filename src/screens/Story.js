@@ -1,31 +1,36 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, } from 'react-native';
 import Log from '../components/Log';
 import Choice from '../components/Choice';
+import StoryMap from '../model/Tree';
 
 const Story = () => {
   const [logs, setLogs] = useState([]);
+  const [currentNode, setCurrentNode] = useState(StoryMap.get('0'));
 
-  const addWordHandler = (word) => {
+  const choiceHandler = (node) => {
+    setCurrentNode(StoryMap.get(node.id)); // Update Node
+    addWordHandler(node); // Update log
+  }
+
+  const addWordHandler = (node) => {
+    console.log(node);
     setLogs(prevLogs => {
-      return [...prevLogs, word];
+      return [...prevLogs, node];
     });
   };
-
   return (
     <View style={styles.container}>
-      <Log 
+      <Log
         data={logs}
       />
-      <Choice 
-        label="Choice1"
-        onPress={addWordHandler}
+      <Choice
+        children={currentNode?.children}
+        onPress={choiceHandler}
+        storyMap={StoryMap}
       />
-      <Choice 
-        label="Choice2"
-        onPress={addWordHandler}
-      />
+
     </View>
   )
 }
