@@ -1013,6 +1013,11 @@
   dependencies:
     "@types/hammerjs" "^2.0.36"
 
+"@expo-google-fonts/cabin@^0.1.0":
+  version "0.1.0"
+  resolved "https://registry.yarnpkg.com/@expo-google-fonts/cabin/-/cabin-0.1.0.tgz#0fd630ef00a1785a9bc7c2c2e865c375ff9d4cca"
+  integrity sha512-ZfBtoqqXeIVMD7ab40QyQJ4BVbaIoe/hmlQnbACmr3sd4Of5CojUUy3/X2mDXxLyBRVo/NwN82seWfubwQX2eQ==
+
 "@expo/configure-splash-screen@0.2.0":
   version "0.2.0"
   resolved "https://registry.yarnpkg.com/@expo/configure-splash-screen/-/configure-splash-screen-0.2.0.tgz#84f9f71363259f16fd0073636a198c750a3cdd7c"
