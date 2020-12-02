@@ -1,16 +1,39 @@
 import React from 'react';
-import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import Color from '../constants';
 import Divider from '../components/Divider';
 
 const Choices = ({ children, onPress, storyMap, font }) => { // Receives node, returns children as buttons
-  let choiceList = children?.map(function (nodeRef) {
-    let node = storyMap.get(nodeRef);
-    return (
-      <TouchableOpacity onPress={() => onPress(node)} style={styles.button}>
-        <Text style={{...styles.text, ...font}}>{node.label}</Text>
-      </TouchableOpacity>
-    )
+  let choiceList = children?.map(function (childNodeRef) {
+    let chosenNode = storyMap.get(childNodeRef);
+    if (chosenNode?.isDeath) {
+      // Placeholder Start
+      Alert.alert(
+        "Replace w/ Death",
+        "PlaceHolder",
+        [
+          {
+            text: "Cancel",
+            onPress: () => { return },
+            style: "cancel"
+          },
+          {
+            text: "OK",
+            onPress: () => { return }
+          }
+        ],
+        { cancelable: false }
+      )
+      return;
+      // Placeholder End
+    } else {
+      return (
+        chosenNode &&
+        <TouchableOpacity onPress={() => onPress(chosenNode)} style={styles.button}>
+          <Text style={{ ...styles.text, ...font }}>{chosenNode.label}</Text>
+        </TouchableOpacity>
+      )
+    }
   });
 
   return (
@@ -46,7 +69,7 @@ const styles = StyleSheet.create({
     backgroundColor: Color.primary,
   },
   text: {
-    fontSize: 32,
+    fontSize: 24,
     fontFamily: "sans-serif",
     color: Color.secondary
   }
