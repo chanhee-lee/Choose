@@ -1,6 +1,9 @@
 // React Native Tree View for Android and IOS devices
 // https://aboutreact.com/react-native-final-tree-view/
 
+
+//NOTE: IRRELEVANT NOW
+
 // import React in our code
 import React from 'react';
 // import all the components we are going to use
