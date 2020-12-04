@@ -6,34 +6,12 @@ import Divider from '../components/Divider';
 const Choices = ({ children, onPress, storyMap, font }) => { // Receives node, returns children as buttons
   let choiceList = children?.map(function (childNodeRef) {
     let chosenNode = storyMap.get(childNodeRef);
-    if (chosenNode?.isDeath) {
-      // Placeholder Start
-      Alert.alert(
-        "Replace w/ Death",
-        "PlaceHolder",
-        [
-          {
-            text: "Cancel",
-            onPress: () => { return },
-            style: "cancel"
-          },
-          {
-            text: "OK",
-            onPress: () => { return }
-          }
-        ],
-        { cancelable: false }
-      )
-      return;
-      // Placeholder End
-    } else {
-      return (
-        chosenNode &&
-        <TouchableOpacity onPress={() => onPress(chosenNode)} style={styles.button}>
-          <Text style={{ ...styles.text, ...font }}>{chosenNode.label}</Text>
-        </TouchableOpacity>
-      )
-    }
+    return (
+      chosenNode &&
+      <TouchableOpacity onPress={() => onPress(chosenNode)} style={styles.button}>
+        <Text style={{ ...styles.text, ...font }}>{chosenNode.label}</Text>
+      </TouchableOpacity>
+    )
   });
 
   return (

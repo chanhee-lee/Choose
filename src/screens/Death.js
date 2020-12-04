@@ -33,7 +33,7 @@ const generateRandomPosition = () => {
   }
 };
 
-const Death = ({ deathCount, showDeathScreen }) => {
+const Death = ({ deathCount, showDeathScreen, resetGame }) => {
   const [index, setIndex] = useState(0);
 
   // Sets container style for Game Over/Regular screen
@@ -65,6 +65,7 @@ const Death = ({ deathCount, showDeathScreen }) => {
     index < deathScenes[deathCount].length && deathCount === 9 && setTimeout(() => {
       wordsList.push(<Text key={index} style={{...styles.gameOverText}}>{word}</Text>)
       setIndex(prevIndex => prevIndex + 1);
+      resetGame();
     }, delay);
 
     // Stops showing death screen with delay

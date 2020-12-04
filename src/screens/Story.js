@@ -10,22 +10,16 @@ import Death from '../screens/Death';
 const Story = ({navigation, route}) => {
   const [logs, setLogs] = useState([]);
   const [currentNode, setCurrentNode] = useState(StoryMap.get('0'));
-  const [checkpoint, setCheckpoint] = useState(currentNode);
   const [deathCount, setDeathCount] = useState(0);
   const [showDeathScreen, setShowDeathScreen] = useState(false);
 
   const choiceHandler = (node) => {
     setCurrentNode(StoryMap.get(node.id)); // Update Node
 
-    // Updates checkpoint
-    if (currentNode?.savePoint) {
-      checkpointHandler(StoryMap.get(currentNode.savePoint[0]));
-    }
-
-    if (currentNode?.isDeath) {
+    if (node?.isDeath) {
       deathCountHandler();
       deathScreenHandler(true);
-      setCurrentNode(checkpoint);
+      setCurrentNode(StoryMap.get(node.savePoint[0]));
     } else {
       addWordHandler(node); // Update log
     }
@@ -35,10 +29,6 @@ const Story = ({navigation, route}) => {
     setLogs(prevLogs => {
       return [...prevLogs, node];
     });
-  };
-  
-  const checkpointHandler = (node) => {
-    setCheckpoint(node);
   };
 
   const deathCountHandler = () => {
@@ -54,10 +44,16 @@ const Story = ({navigation, route}) => {
     setShowDeathScreen(val);
   };
 
+  const resetGameHandler = () => {
+    setCurrentNode(StoryMap.get('0'));
+    setLogs([]);
+  };
+
   return showDeathScreen ? 
     <Death
       deathCount={deathCount}
       showDeathScreen={deathScreenHandler}
+      resetGame={resetGameHandler}
     /> : 
     (
       <View style={styles.container}>
