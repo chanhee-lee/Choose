@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
+import {MED_FONT, LG_FONT} from '../constants';
 
 // Variables Under Each Node (* means it's a required field)
 // id*
@@ -67,3 +68,52 @@ StoryMap.set('5b4', { id: '5b4', label: 'Continue Forward', savePoint: ['4'], is
 StoryMap.set('5a', { id: '5a', label: 'Left', children: ['6'] });
 StoryMap.set('6', { id: '6', label: 'Bathroom', children: ['6a', '6b'] });
 
+StoryMap.set('6a', { id: '6a', label: 'Approach Mirrors', children: ['6a1'] });
+StoryMap.set('6a1', { id: '6a1', label: 'TRAPPED', children: ['6b'], fontStyle: 'italic', fontColor: 'red' });
+StoryMap.set('6b', { id: '6b', label: 'Check Showers', children: ['6b1'] });
+StoryMap.set('6b1', { id: '6b1', label: 'Dark Figure.', children: ['6b1a', '6b1b'] });
+StoryMap.set('6b1a', { id: '6b1a', label: 'Attack', savePoint: ['4'], isDeath: true });
+StoryMap.set('6b1b', { id: '6b1b', label: 'Run', children: ['7a', '7b', '7c'] });
+
+StoryMap.set('7a', { id: '7a', label: 'Room', children: ['7a1'] });
+StoryMap.set('7a1', { id: '7a1', label: 'Locked.', children: ['7b', '7c'] });
+StoryMap.set('7b', { id: '7b', label: 'Maintenance Elevator', children: ['7b1'] });
+StoryMap.set('7b1', { id: '7b1', label: 'Disabled.', children: ['7c', '7a'] });
+StoryMap.set('7c', { id: '7c', label: 'Stairs', children: ['7c1', '7c2'] });
+StoryMap.set('7c2', { id: '7c2', label: 'Down', children: ['7c3'] });
+StoryMap.set('7c3', { id: '7c3', label: 'Blocked.', children: ['7c1', '7c4'] });
+StoryMap.set('7c4', { id: '7c4', label: 'Down', savePoint: ['7c'], isDeath: true });
+StoryMap.set('7c1', { id: '7c1', label: 'Up', children: ['8a', '8b'] });
+
+StoryMap.set('8b', { id: '8b', label: 'Red Door', children: ['8b1'] });
+StoryMap.set('8b1', { id: '8b1', label: '204', children: ['8b2a', '8b3a', '8b4a'], fontStyle: 'italic', fontColor: '#9b870c' });
+StoryMap.set('8b2a', { id: '8b2a', label: 'Desk', children: ['8b2b'] });
+StoryMap.set('8b2b', { id: '8b2b', label: 'Approach', children: ['8b2c'] });
+StoryMap.set('8b2c', { id: '8b2c', label: 'Notebook', children: ['8b2d'] });
+StoryMap.set('8b2d', { id: '8b2d', label: 'Open', children: ['8b2e'] });
+StoryMap.set('8b2e', { id: '8b2e', label: 'IT\'S YOUR FAULT', children: ['8b2f'], font: 'TODO', isNarration: true });
+StoryMap.set('8b2f', { id: '8b2f', label: 'IT\'S YOUR FAULT', children: ['8b2g'], font: 'TODO', isNarration: true });
+StoryMap.set('8b2g', { id: '8b2g', label: 'IT\'S YOUR FAULT', children: ['8b2h'], font: 'TODO', isNarration: true });
+StoryMap.set('8b2h', { id: '8b2h', label: 'IT\'S YOUR FAULT', children: ['8b2i'], font: 'TODO', isNarration: true });
+StoryMap.set('8b2i', { id: '8b2i', label: 'IT\'S YOUR FAULT', children: ['8b2j'], font: 'TODO', isNarration: true });
+StoryMap.set('8b2j', { id: '8b2j', label: 'IT\'S YOUR FAULT', children: ['8b2k'], font: 'TODO', isNarration: true });
+StoryMap.set('8b2k', { id: '8b2k', label: 'IT\'S YOUR FAULT', children: ['8b2l'], font: 'TODO', isNarration: true });
+StoryMap.set('8b2l', { id: '8b2l', label: 'IT\'S YOUR FAULT', children: ['8b2m'], font: 'TODO', isNarration: true });
+StoryMap.set('8b2m', { id: '8b2m', label: 'IT\'S YOUR FAULT', children: ['8b4a'], font: 'TODO', isNarration: true });
+StoryMap.set('8b3a', { id: '8b3a', label: 'Window', children: ['8b3b'] });
+StoryMap.set('8b3b', { id: '8b3b', label: 'Distant Lights', children: ['8b3c'] });
+StoryMap.set('8b3c', { id: '8b3c', label: 'Look Out', children: ['8b3e'] });
+StoryMap.set('8b3e', { id: '8b3e', label: '*Honking*', children: ['8b3f'], isNarration: true });
+StoryMap.set('8b3f', { id: '8b3f', label: '*Screeching*', children: ['8b3g'], isNarration: true });
+StoryMap.set('8b3g', { id: '8b3g', label: '*Honking*', children: ['8b3h'], isNarration: true, fontSize: MED_FONT });
+StoryMap.set('8b3h', { id: '8b3h', label: '*Screeching*', children: ['8b3i'], isNarration: true, fontSize: MED_FONT });
+StoryMap.set('8b3i', { id: '8b3i', label: 'HONK!!', children: ['8b3j'], isNarration: true, fontSize: LG_FONT });
+StoryMap.set('8b3j', { id: '8b3j', label: 'Run Out', children: ['8b4b'] });
+
+StoryMap.set('8a', { id: '8a', label: 'Yellow Door', children: ['8a1'] });
+StoryMap.set('8a1', { id: '8a1', label: '201', children: ['8a2'], fontStyle: 'italic', fontColor: '#9b870c' });
+StoryMap.set('8a2', { id: '8a2', label: 'Enter', children: ['8a3', '8a4'] });
+StoryMap.set('8a3', { id: '8a3', label: 'Lock', children: ['8a5'] });
+StoryMap.set('8a4', { id: '8a4', label: 'Hide', children: ['8a5'] });
+StoryMap.set('8a5', { id: '8a5', label: 'Laundry Room.', children: ['8a6'], isNarration: true });
+StoryMap.set('8a6', { id: '8a6', label: '*Beeping*', children: ['8a7', '8a10'], isNarration: true, fontStyle: 'italic' });
