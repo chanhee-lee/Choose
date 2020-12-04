@@ -33,12 +33,12 @@ StoryMap.set('2b', { id: '2b', label: 'Door', children: ['2b1'] });
 StoryMap.set('2b1', { id: '2b1', label: 'Locked', children: ['3a', '3b'], isNarration: true });
 
 StoryMap.set('3a', { id: '3a', label: 'Desk', children: ['3a1','3a2'] });
-StoryMap.set('3a1', { id: '3a', label: 'Drawer', children: ['3a1a'] });
+StoryMap.set('3a1', { id: '3a1', label: 'Drawer', children: ['3a1a'] });
 StoryMap.set('3a1a', { id: '3a1a', label: 'Picture', children: ['3a1b', '3a1d'] });
 StoryMap.set('3a1b', { id: '3a1b', label: 'Front', children: ['3a1c'] });
 StoryMap.set('3a1c', { id: '3a1c', label: '\"Sister\"', children: ['3a1', '3a2'], isNarration: true });
 StoryMap.set('3a1d', { id: '3a1d', label: 'Back', children: ['3a1e'] });
-StoryMap.set('3a1d', { id: '3a1d', label: '06/04', children: ['3a1', '3a2'], isNarration: true, fontWeight: 'italic' });
+StoryMap.set('3a1e', { id: '3a1e', label: '06/04', children: ['3a1', '3a2'], isNarration: true, fontWeight: 'italic' });
 StoryMap.set('3a2', { id: '3a2', label: 'Pills', children: ['3a2a, 3a2c'] });
 StoryMap.set('3a2a', { id: '3a2a', label: 'Eat', children: ['3a2b'] });
 StoryMap.set('3a2b', { id: '3a2b', label: 'Relaxed', children: ['4'], fontStyle: 'italic', isNarration: true });
