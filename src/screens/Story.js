@@ -5,36 +5,71 @@ import Log from '../components/Log';
 import Choices from '../components/Choices';
 import StoryMap from '../model/Tree';
 import Color from '../constants';
+import Death from '../screens/Death';
 
 const Story = ({navigation, route}) => {
   const [logs, setLogs] = useState([]);
   const [currentNode, setCurrentNode] = useState(StoryMap.get('0'));
+  const [deathCount, setDeathCount] = useState(0);
+  const [showDeathScreen, setShowDeathScreen] = useState(false);
 
   const choiceHandler = (node) => {
     setCurrentNode(StoryMap.get(node.id)); // Update Node
-    addWordHandler(node); // Update log
-  }
+
+    if (node?.isDeath) {
+      deathCountHandler();
+      deathScreenHandler(true);
+      setCurrentNode(StoryMap.get(node.savePoint[0]));
+    } else {
+      addWordHandler(node); // Update log
+    }
+  };
 
   const addWordHandler = (node) => {
     setLogs(prevLogs => {
       return [...prevLogs, node];
     });
   };
-  return (
-    <View style={styles.container}>
-      <Log
-        data={logs}
-        font={route.params.font}
-      />
-      <Choices
-        children={currentNode?.children}
-        onPress={choiceHandler}
-        storyMap={StoryMap}
-        font={route.params.font}
-      />
-    </View>
-  )
-}
+
+  const deathCountHandler = () => {
+    setDeathCount(prevCount => prevCount + 1);
+
+    // Resets game after 9 deaths
+    if (deathCount === 9) {
+      setDeathCount(0);
+    }
+  };
+
+  const deathScreenHandler = (val) => {
+    setShowDeathScreen(val);
+  };
+
+  const resetGameHandler = () => {
+    setCurrentNode(StoryMap.get('0'));
+    setLogs([]);
+  };
+
+  return showDeathScreen ? 
+    <Death
+      deathCount={deathCount}
+      showDeathScreen={deathScreenHandler}
+      resetGame={resetGameHandler}
+    /> : 
+    (
+      <View style={styles.container}>
+        <Log
+          data={logs}
+          font={route.params.font}
+        />
+        <Choices
+          children={currentNode?.children}
+          onPress={choiceHandler}
+          storyMap={StoryMap}
+          font={route.params.font}
+        />
+      </View>
+    )
+};
 
 const styles = StyleSheet.create({
   container: {

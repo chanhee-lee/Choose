@@ -7,7 +7,8 @@ import Color from '../constants';
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 const SLOW_DELAY = 1500;
-const FAST_DELAY = 50;
+const FAST_DELAY = 100;
+const ENDING_DELAY = 2500;
 const deathScenes = {
   "1": ["House", "Music", "Fun"],
   "2": ["Friends", "Talking", "Dancing"],
@@ -22,9 +23,9 @@ const deathScenes = {
 
 let wordsList = [];
 let delay = SLOW_DELAY;
-let deathCount = 8;
 let containerStyle;
 
+// Returns random CSS screen positions for each word
 const generateRandomPosition = () => {
   return {
     top: Math.floor(Math.random() * (WINDOW_HEIGHT / 1.25)) + 1,
@@ -32,7 +33,7 @@ const generateRandomPosition = () => {
   }
 };
 
-const Death = () => {
+const Death = ({ deathCount, showDeathScreen, resetGame }) => {
   const [index, setIndex] = useState(0);
 
   // Sets container style for Game Over/Regular screen
@@ -42,29 +43,37 @@ const Death = () => {
     containerStyle = styles.regularScreen;
   }
 
-  // Deaths 7-9 will have fast delay
+  // Deaths 7-8 will have fast delay
   if (deathCount === 7 || deathCount === 8 || deathCount === 9) {
     delay = FAST_DELAY;
   }
 
   // Adds words to the screen with a delay
   useEffect(() => {
-    let word = deathScenes[8][index];
+    let word = deathScenes[deathCount][index];
 
-    index < deathScenes[8].length && setTimeout(() => {
-      // Game Over Screen
-      if (deathCount === 9) {
-        wordsList.push(<Text key={index} style={{...styles.gameOverText}}>{word}</Text>)
-        setIndex(prevIndex => prevIndex + 1);
-      } else {
-        // Death Screens
-        wordsList.push(<Text key={index} style={{...styles.regularText, ...generateRandomPosition()}}>{word}</Text>);
-        setIndex(prevIndex => prevIndex + 1);
+    // Death Screens
+    index < deathScenes[deathCount].length && deathCount < 9 && setTimeout(() => {
+      wordsList.push(<Text key={index} style={{...styles.regularText, ...generateRandomPosition()}}>{word}</Text>);
+      setIndex(prevIndex => prevIndex + 1);
 
-        // Clears wordsList for Deaths 1-6
-        wordsList = delay === SLOW_DELAY ? [] : wordsList;
-      }
+      // Clears wordsList for Deaths 1-6
+      wordsList = delay === SLOW_DELAY ? [] : wordsList;
     }, delay);
+
+    // Game Over Screen
+    index < deathScenes[deathCount].length && deathCount === 9 && setTimeout(() => {
+      wordsList.push(<Text key={index} style={{...styles.gameOverText}}>{word}</Text>)
+      setIndex(prevIndex => prevIndex + 1);
+      resetGame();
+    }, delay);
+
+    // Stops showing death screen with delay
+    index >= deathScenes[deathCount].length && setTimeout(() => {
+      showDeathScreen(false);
+      wordsList = [];
+      return () => setIndex(0);
+    }, ENDING_DELAY);
   });
 
   return (
@@ -98,7 +107,7 @@ const styles = StyleSheet.create({
     color: Color.death,
     alignItems: 'center',
     justifyContent: 'center',
-    fontSize: 56,
+    fontSize: 60,
     fontFamily: 'sans-serif',
   }
 })
