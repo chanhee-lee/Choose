@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ImageBackground, Text } from 'react-native';
 import { Dimensions } from 'react-native';
-import Color from '../constants';
+import { Color, Delay } from '../constants';
 
 // Constants
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;
-const SLOW_DELAY = 1500;
-const FAST_DELAY = 100;
-const ENDING_DELAY = 2500;
 const deathScenes = {
   "1": ["House", "Music", "Fun"],
   "2": ["Friends", "Talking", "Dancing"],
@@ -22,7 +19,7 @@ const deathScenes = {
 };
 
 let wordsList = [];
-let delay = SLOW_DELAY;
+let delay = Delay.SLOW_DELAY;
 let containerStyle;
 
 // Returns random CSS screen positions for each word
@@ -45,7 +42,7 @@ const Death = ({ deathCount, showDeathScreen, resetGame }) => {
 
   // Deaths 7-8 will have fast delay
   if (deathCount === 7 || deathCount === 8 || deathCount === 9) {
-    delay = FAST_DELAY;
+    delay = Delay.FAST_DELAY;
   }
 
   // Adds words to the screen with a delay
@@ -58,7 +55,7 @@ const Death = ({ deathCount, showDeathScreen, resetGame }) => {
       setIndex(prevIndex => prevIndex + 1);
 
       // Clears wordsList for Deaths 1-6
-      wordsList = delay === SLOW_DELAY ? [] : wordsList;
+      wordsList = delay === Delay.SLOW_DELAY ? [] : wordsList;
     }, delay);
 
     // Game Over Screen
@@ -73,7 +70,7 @@ const Death = ({ deathCount, showDeathScreen, resetGame }) => {
       showDeathScreen(false);
       wordsList = [];
       return () => setIndex(0);
-    }, ENDING_DELAY);
+    }, Delay.ENDING_DELAY);
   });
 
   return (

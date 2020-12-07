@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { SafeAreaView, StyleSheet, FlatList, Button } from 'react-native';
 import Word from './Word';
-import Color from '../constants';
+import {Color} from '../constants';
 
 const Log = ({data, font}) => {
   let fList;

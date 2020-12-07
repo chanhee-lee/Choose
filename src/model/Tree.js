@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
-import {MED_FONT, LG_FONT} from '../constants';
+import { Size } from '../constants';
 
 // Variables Under Each Node (* means it's a required field)
 // id*
@@ -105,9 +105,9 @@ StoryMap.set('8b3b', { id: '8b3b', label: 'Distant Lights', children: ['8b3c'] }
 StoryMap.set('8b3c', { id: '8b3c', label: 'Look Out', children: ['8b3e'] });
 StoryMap.set('8b3e', { id: '8b3e', label: '*Honking*', children: ['8b3f'], isNarration: true });
 StoryMap.set('8b3f', { id: '8b3f', label: '*Screeching*', children: ['8b3g'], isNarration: true });
-StoryMap.set('8b3g', { id: '8b3g', label: '*Honking*', children: ['8b3h'], isNarration: true, fontSize: MED_FONT });
-StoryMap.set('8b3h', { id: '8b3h', label: '*Screeching*', children: ['8b3i'], isNarration: true, fontSize: MED_FONT });
-StoryMap.set('8b3i', { id: '8b3i', label: 'HONK!!', children: ['8b3j'], isNarration: true, fontSize: LG_FONT });
+StoryMap.set('8b3g', { id: '8b3g', label: '*Honking*', children: ['8b3h'], isNarration: true, fontSize: Size.MED_FONT });
+StoryMap.set('8b3h', { id: '8b3h', label: '*Screeching*', children: ['8b3i'], isNarration: true, fontSize: Size.MED_FONT });
+StoryMap.set('8b3i', { id: '8b3i', label: 'HONK!!', children: ['8b3j'], isNarration: true, fontSize: Size.LG_FONT });
 StoryMap.set('8b3j', { id: '8b3j', label: 'Run Out', children: ['8b4b'] });
 
 StoryMap.set('8a', { id: '8a', label: 'Yellow Door', children: ['8a1'] });

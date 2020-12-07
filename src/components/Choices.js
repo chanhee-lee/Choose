@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, Alert } from 'react-native';
-import Color from '../constants';
+import {Color} from '../constants';
 import Divider from '../components/Divider';
 
 const Choices = ({ children, onPress, storyMap, font }) => { // Receives node, returns children as buttons

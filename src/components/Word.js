@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import Color from '../constants';
+import {Color} from '../constants';
 
 const Word = ({label, font}) => {
   return (
