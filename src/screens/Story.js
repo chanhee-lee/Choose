@@ -4,7 +4,7 @@ import { View, StyleSheet, } from 'react-native';
 import Log from '../components/Log';
 import Choices from '../components/Choices';
 import StoryMap from '../model/Tree';
-import Color from '../constants';
+import { Color, Delay } from '../constants';
 import Death from '../screens/Death';
 
 const Story = ({navigation, route}) => {
@@ -15,15 +15,26 @@ const Story = ({navigation, route}) => {
 
   const choiceHandler = (node) => {
     setCurrentNode(StoryMap.get(node.id)); // Update Node
-
-    if (node?.isDeath) {
+    addWordHandler(node);
+    console.log("Node: ", node.label);
+    if (node?.isDeath) {  // Death node
       deathCountHandler();
       deathScreenHandler(true);
       setCurrentNode(StoryMap.get(node.savePoint[0]));
-    } else {
-      addWordHandler(node); // Update log
+    } else {  // Nondeath Node
+      handleNarration(node);
     }
   };
+
+  const handleNarration = (node) => {
+    if (node?.children && node?.children.length == 1 && StoryMap.get(node.children[0]).isNarration) { // Narration will be an only child
+      setTimeout(() => {
+        addWordHandler(StoryMap.get(node.children[0]));
+        setCurrentNode(StoryMap.get(node.children[0]));
+        handleNarration(StoryMap.get(node.children[0]));
+      }, Delay.MED_DELAY);
+    } 
+  }
 
   const addWordHandler = (node) => {
     setLogs(prevLogs => {

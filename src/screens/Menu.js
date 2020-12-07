@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, View, Alert } from 'react-native';
 import MenuButton from '../components/MenuButton';
-import Color from '../constants';
+import {Color} from '../constants';
 import {
   useFonts,
   Cabin_500Medium,

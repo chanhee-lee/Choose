@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, } from 'react-native';
-import Color from '../constants';
+import {Color} from '../constants';
 
 const Divider = (props) => {
   return (
