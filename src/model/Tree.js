@@ -14,6 +14,8 @@ import { Size } from '../constants';
 // isNarration: null, 
 // timer: null,
 // isDeath: null, 
+// isPartyScene: null,
+// isVendingMachine: null,
 
 /** This file contains the story in a map format. The data structure is a tree.
  *  Given an id, it will return the corresponding node */
@@ -108,7 +110,8 @@ StoryMap.set('8b3f', { id: '8b3f', label: '*Screeching*', children: ['8b3g'], is
 StoryMap.set('8b3g', { id: '8b3g', label: '*Honking*', children: ['8b3h'], isNarration: true, fontSize: Size.MED_FONT });
 StoryMap.set('8b3h', { id: '8b3h', label: '*Screeching*', children: ['8b3i'], isNarration: true, fontSize: Size.MED_FONT });
 StoryMap.set('8b3i', { id: '8b3i', label: 'HONK!!', children: ['8b3j'], isNarration: true, fontSize: Size.LG_FONT });
-StoryMap.set('8b3j', { id: '8b3j', label: 'Run Out', children: ['8b4b'] });
+StoryMap.set('8b3j', { id: '8b3j', label: 'Run Out', children: ['9c'] });
+StoryMap.set('8b4a', { id: '8b4a', label: 'Leave', children: ['9c'] });
 
 StoryMap.set('8a', { id: '8a', label: 'Yellow Door', children: ['8a1'] });
 StoryMap.set('8a1', { id: '8a1', label: '201', children: ['8a2'], fontStyle: 'italic', fontColor: '#9b870c' });
@@ -117,3 +120,36 @@ StoryMap.set('8a3', { id: '8a3', label: 'Lock', children: ['8a5'] });
 StoryMap.set('8a4', { id: '8a4', label: 'Hide', children: ['8a5'] });
 StoryMap.set('8a5', { id: '8a5', label: 'Laundry Room.', children: ['8a6'], isNarration: true });
 StoryMap.set('8a6', { id: '8a6', label: '*Beeping*', children: ['8a7', '8a10'], isNarration: true, fontStyle: 'italic' });
+StoryMap.set('8a7', { id: '8a7', label: 'Vending Machine', children: ['8a8'] });
+StoryMap.set('8a8', { id: '8a8', label: 'Use', children: ['8a9'], isVendingMachine: true });
+StoryMap.set('8a9', { id: '8a9', label: 'Vending Machine Screen', children: ['8aa', '8ab', '8ac'], isNarration: true});
+StoryMap.set('8aa', { id: '8aa', label: '\"Heh\"', children: ['9'], isNarration: true });
+StoryMap.set('8ab', { id: '8ab', label: 'Hair Tie', children: ['9'], isNarration: true });
+StoryMap.set('8ac', { id: '8ac', label: 'Nothing happened', children: ['8a10'], isNarration: true });
+StoryMap.set('8a10', { id: '8a10', label: 'Laundry Machine', children: ['8a11'] });
+StoryMap.set('8a11', { id: '8a11', label: 'Use', children: ['8a12'] });
+StoryMap.set('8a12', { id: '8a12', label: 'Yellow Hoodie', children: ['9'], isNarration: true});
+StoryMap.set('9', { id: '9', label: 'Check Hall', children: ['9a'] });
+StoryMap.set('9a', { id: '9a', label: 'Nothing', children: ['9b'], isNarration: true });
+StoryMap.set('9b', { id: '9b', label: 'Leave', children: ['8b', '9c'] });
+StoryMap.set('9c', { id: '9c', label: 'Go upstairs', children: ['10'] });
+StoryMap.set('10', { id: '10', label: 'Opened Door', children: ['11'], isNarration: true });
+StoryMap.set('11', { id: '11', label: 'Music', children: ['12'], isNarration: true });
+StoryMap.set('12', { id: '12', label: 'Approach', children: ['13'] });
+StoryMap.set('13', { id: '13', label: '\"102\"', children: ['14'] });
+StoryMap.set('14', { id: '14', label: 'Enter', children: ['15'], isPartyScene: true });
+StoryMap.set('15', { id: '15', label: 'Party Scene 1', children: ['16a', '16b'], isNarration: true });
+StoryMap.set('16a', { id: '16a', label: 'Take Drink', children: ['17'], isPartyScene: true });
+StoryMap.set('16b', { id: '16b', label: 'Refuse', children: ['17'], isPartyScene: true });
+StoryMap.set('17', { id: '17', label: 'Party Scene 2', children: ['18'], isNarration: true });
+StoryMap.set('18', { id: '18', label: '*Whispers*', children: ['19'], isNarration: true, fontStyle: 'italic' });
+StoryMap.set('19', { id: '19', label: 'Movement/Rustling', children: ['20'], isNarration: true });
+StoryMap.set('20', { id: '20', label: 'Figure', children: ['21a', '21b'], isNarration: true });
+StoryMap.set('21a', { id: '21a', label: 'Run Out', children: ['22'] });
+StoryMap.set('21b', { id: '21b', label: 'Attack', savePoint: ['15'], isDeath: true });
+StoryMap.set('22', { id: '22', label: 'Stairs', children: ['23a', '23b'] });
+StoryMap.set('23a', { id: '23a', label: 'Down', children: ['23a1'] });
+StoryMap.set('23a1', { id: '23a1', label: 'Dead End', children: ['23b'], isNarration: true });
+StoryMap.set('23b', { id: '23b', label: 'Up', children: ['24'] });
+
+StoryMap.set('24', { id: '24', label: '\"HELP!\"', children: ['25', '26'], isNarration: true });

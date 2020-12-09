@@ -15,6 +15,6 @@ const styles = StyleSheet.create({
     fontSize: 40,
     color: Color.secondary
   }
-})
+});
 
 export default Word;

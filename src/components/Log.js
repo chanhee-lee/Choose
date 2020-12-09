@@ -24,7 +24,7 @@ const Log = ({data, font}) => {
       />
     </SafeAreaView>
   )
-}
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -35,6 +35,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20
   }
-})
+});
 
 export default Log;
