@@ -40,7 +40,7 @@ const Death = ({ deathCount, showDeathScreen, resetGame }) => {
     containerStyle = styles.regularScreen;
   }
 
-  // Deaths 7-8 will have fast delay
+  // Deaths 7-9 will have fast delay
   if (deathCount === 7 || deathCount === 8 || deathCount === 9) {
     delay = Delay.FAST_DELAY;
   }

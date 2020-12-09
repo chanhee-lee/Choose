@@ -15,4 +15,5 @@ export const Delay = {
   MED_DELAY: 750,
   FAST_DELAY: 100,
   ENDING_DELAY: 2500,
+  PARTY_DELAY: 3000, 
 }

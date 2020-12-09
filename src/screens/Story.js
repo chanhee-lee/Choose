@@ -6,22 +6,30 @@ import Choices from '../components/Choices';
 import StoryMap from '../model/Tree';
 import { Color, Delay } from '../constants';
 import Death from '../screens/Death';
+import Party from '../screens/Party';
 
 const Story = ({navigation, route}) => {
   const [logs, setLogs] = useState([]);
   const [currentNode, setCurrentNode] = useState(StoryMap.get('0'));
   const [deathCount, setDeathCount] = useState(0);
   const [showDeathScreen, setShowDeathScreen] = useState(false);
+  const [showPartyScreen, setShowPartyScreen] = useState(false);
+  const [partyDecision, setPartyDecision] = useState("");
 
   const choiceHandler = (node) => {
     setCurrentNode(StoryMap.get(node.id)); // Update Node
     addWordHandler(node);
     console.log("Node: ", node.label);
-    if (node?.isDeath) {  // Death node
+    if (node?.isDeath) {  // Death Node
       deathCountHandler();
       deathScreenHandler(true);
       setCurrentNode(StoryMap.get(node.savePoint[0]));
-    } else {  // Nondeath Node
+    } else if (node?.isPartyScene) {  // Party Node
+      partyScreenHandler(true);
+      setPartyDecision(node?.label);
+      setCurrentNode(StoryMap.get(node?.children[0]));
+    } 
+    else {  // Nondeath Node
       handleNarration(node);
     }
   };
@@ -34,7 +42,7 @@ const Story = ({navigation, route}) => {
         handleNarration(StoryMap.get(node.children[0]));
       }, Delay.MED_DELAY);
     } 
-  }
+  };
 
   const addWordHandler = (node) => {
     setLogs(prevLogs => {
@@ -60,26 +68,68 @@ const Story = ({navigation, route}) => {
     setLogs([]);
   };
 
-  return showDeathScreen ? 
-    <Death
-      deathCount={deathCount}
-      showDeathScreen={deathScreenHandler}
-      resetGame={resetGameHandler}
-    /> : 
-    (
-      <View style={styles.container}>
-        <Log
-          data={logs}
+  const partyScreenHandler = (val) => {
+    setShowPartyScreen(val);
+  };
+
+  const renderScreen = () => {
+    if (showDeathScreen) {
+      return (
+        <Death 
+          deathCount={deathCount}
+          showDeathScreen={deathScreenHandler}
+          resetGame={resetGameHandler}
+        />
+      );
+    } else if (showPartyScreen) {
+      return (
+        <Party
+          currentScene={currentNode}
+          partyDecision={partyDecision} 
+          showPartyScene={partyScreenHandler}
           font={route.params.font}
         />
-        <Choices
-          children={currentNode?.children}
-          onPress={choiceHandler}
-          storyMap={StoryMap}
-          font={route.params.font}
-        />
-      </View>
-    )
+      );
+    } else {
+      return (
+        <View style={styles.container}>
+          <Log 
+            data={logs}
+            font={route.params.font}
+          />
+          <Choices 
+            children={currentNode?.children}
+            onPress={choiceHandler}
+            storyMap={StoryMap}
+            font={route.params.font}
+          />
+        </View>
+      )
+    }
+  };
+
+  return renderScreen();
+
+  // return showDeathScreen ? 
+  //   <Death
+  //     deathCount={deathCount}
+  //     showDeathScreen={deathScreenHandler}
+  //     resetGame={resetGameHandler}
+  //   /> : 
+  //   (
+  //     <View style={styles.container}>
+  //       <Log
+  //         data={logs}
+  //         font={route.params.font}
+  //       />
+  //       <Choices
+  //         children={currentNode?.children}
+  //         onPress={choiceHandler}
+  //         storyMap={StoryMap}
+  //         font={route.params.font}
+  //       />
+  //     </View>
+  //   )
 };
 
 const styles = StyleSheet.create({
@@ -88,6 +138,6 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight || 0,
     backgroundColor: Color.primary
   },
-})
+});
 
 export default Story;
