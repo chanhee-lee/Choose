@@ -1,5 +1,3 @@
-import React from 'react';
-import { View, Text, Button } from 'react-native';
 import { Size } from '../constants';
 
 // Variables Under Each Node (* means it's a required field)
@@ -41,7 +39,7 @@ StoryMap.set('3a1a', { id: '3a1a', label: 'Picture', children: ['3a1b', '3a1d'] 
 StoryMap.set('3a1b', { id: '3a1b', label: 'Front', children: ['3a1c'] });
 StoryMap.set('3a1c', { id: '3a1c', label: '\"Sister\"', children: ['3a1', '3a2'], isNarration: true });
 StoryMap.set('3a1d', { id: '3a1d', label: 'Back', children: ['3a1e'] });
-StoryMap.set('3a1e', { id: '3a1e', label: '06/04', children: ['3a1', '3a2'], isNarration: true, fontWeight: 'italic' });
+StoryMap.set('3a1e', { id: '3a1e', label: '06/04', children: ['3a1', '3a2'], isNarration: true, fontStyle: 'italic' });
 StoryMap.set('3a2', { id: '3a2', label: 'Pills', children: ['3a2a', '3a2c'] });
 StoryMap.set('3a2a', { id: '3a2a', label: 'Eat', children: ['3a2b'] });
 StoryMap.set('3a2b', { id: '3a2b', label: 'Relaxed', children: ['4'], fontStyle: 'italic', isNarration: true });
@@ -151,5 +149,73 @@ StoryMap.set('22', { id: '22', label: 'Stairs', children: ['23a', '23b'] });
 StoryMap.set('23a', { id: '23a', label: 'Down', children: ['23a1'] });
 StoryMap.set('23a1', { id: '23a1', label: 'Dead End', children: ['23b'], isNarration: true });
 StoryMap.set('23b', { id: '23b', label: 'Up', children: ['24'] });
-
 StoryMap.set('24', { id: '24', label: '\"HELP!\"', children: ['25', '26'], isNarration: true });
+
+// Bad Ending Path
+StoryMap.set('25', { id: '25', label: 'Hide', children: ['25a'] });
+StoryMap.set('25a', { id: '25a', label: 'Empty Room', children: ['25b'], isNarration: true });
+StoryMap.set('25b', { id: '25b', label: 'Lock Door', children: ['25c'] });
+StoryMap.set('25c', { id: '25c', label: 'Footsetps Close', children: ['25d'], isNarration: true });
+StoryMap.set('25d', { id: '25d', label: 'Knock', children: ['25e'], isNarration: true });
+StoryMap.set('25e', { id: '25e', label: 'Knock', children: ['25f'], isNarration: true, fontSize: Size.MED_FONT });
+StoryMap.set('25f', { id: '25f', label: 'Knock', children: ['25g'], isNarration: true, fontSize: Size.LG_FONT });
+StoryMap.set('25g', { id: '25g', label: 'YOU COWARD', children: ['25h'], fontStyle: 'italic' });
+StoryMap.set('25h', { id: '25h', label: 'Panic', children: ['25i'] });
+StoryMap.set('25i', { id: '25i', label: 'Suffocating', children: ['25i1', '25i4'], isNarration: true });
+StoryMap.set('25i1', { id: '25i1', label: 'Breathe', children: ['25i2'] });
+StoryMap.set('25i2', { id: '25i2', label: 'Breathe', children: ['25i3'], isNarration: true });
+StoryMap.set('25i3', { id: '25i3', label: 'Breathe', children: ['25j'], isNarration: true });
+StoryMap.set('25i4', { id: '25i4', label: 'Run Out', savePoint: ['25'], isDeath: true })
+StoryMap.set('25j', { id: '25j', label: 'Find Person', children: ['25k'] });
+StoryMap.set('25k', { id: '25k', label: 'Room 302', children: ['25l'], fontStyle: 'italic' });
+StoryMap.set('25l', { id: '25l', label: 'Enter', children: ['25m'] });
+StoryMap.set('25m', { id: '25m', label: 'Person', children: ['25n'], isNarration: true });
+StoryMap.set('25n', { id: '25n', label: 'Hanging', children: ['25o'], isNarration: true });
+StoryMap.set('25o', { id: '25o', label: 'Dead', children: ['25p'], isNarration: true });
+StoryMap.set('25p', { id: '25p', label: 'Search Room', children: ['25q'] });
+StoryMap.set('25q', { id: '25q', label: 'Bedsheets', children: ['25r'] });
+StoryMap.set('25r', { id: '25r', label: 'Window', children: ['25s', '25s1'] });
+StoryMap.set('25s', { id: '25s', label: 'Escape Window', children: ['25t'] });
+StoryMap.set('25s1', { id: '25s1', label: 'Leave Room', children: ['25s2'] });
+StoryMap.set('25s2', { id: '25s2', label: 'Figure', savePoint: ['25l'], isDeath: true });
+StoryMap.set('25t', { id: '25t', label: 'Fall', children: ['25u'], isNarration: true });
+StoryMap.set('25u', { id: '25u', label: 'Legs Broken', children: ['25v'], isNarration: true });
+StoryMap.set('25v', { id: '25v', label: 'Crawl Away', children: ['25w'] });
+StoryMap.set('25w', { id: '25w', label: 'Ending (Bad)' });
+
+// Good Ending Path
+StoryMap.set('26', { id: '26', label: 'Find', children: ['26a'] });
+StoryMap.set('26a', { id: '26a', label: 'Room 302', children: ['26b'], isNarration: true });
+StoryMap.set('26b', { id: '26b', label: 'Enter', children: ['26c'] });
+StoryMap.set('26c', { id: '26c', label: 'Person', children: ['26d'], isNarration: true });
+StoryMap.set('26d', { id: '26d', label: 'Hanging', children: ['26e'], isNarration: true });
+StoryMap.set('26e', { id: '26e', label: 'Struggling', children: ['26f'], isNarration: true });
+StoryMap.set('26f', { id: '26f', label: 'Save', children: ['26g'] });
+StoryMap.set('26g', { id: '26g', label: 'Dead', children: ['27', '30'], isNarration: true });
+StoryMap.set('27', { id: '27', label: 'Search Body', children: ['28'] });
+StoryMap.set('28', { id: '28', label: 'Keys', children: ['33', '28a'] });
+StoryMap.set('28a', { id: '28a', label: 'Search Room', children: ['28b'] });
+StoryMap.set('28b', { id: '28b', label: 'Bedsheets', children: ['28c'] });
+StoryMap.set('28c', { id: '28c', label: 'Window', children: ['33', '29'] });
+StoryMap.set('29', { id: '29', label: 'Escape Window', children: ['29a'] });
+StoryMap.set('29a', { id: '29a', label: 'Fall', children: ['29b'], isNarration: true });
+StoryMap.set('29b', { id: '29b', label: 'Legs Broken', children: ['29c'], isNarration: true });
+StoryMap.set('29c', { id: '29c', label: 'Crawl Away', children: ['25w'] });
+StoryMap.set('30', { id: '30', label: 'Search Room', children: ['30a'] });
+StoryMap.set('30a', { id: '30a', label: 'Bedsheets', children: ['30b'] });
+StoryMap.set('30b', { id: '30b', label: 'Window', children: ['29', '31'] });
+StoryMap.set('31', { id: '31', label: 'Search Body', children: ['32'] });
+StoryMap.set('32', { id: '32', label: 'Keys', children: ['33'] });
+StoryMap.set('33', { id: '33', label: 'Leave Room', children: ['33a', '33b'] });
+StoryMap.set('33a', { id: '33a', label: 'Stairs', children: ['33a1'] });
+StoryMap.set('33a1', { id: '33a1', label: 'Down', children: ['33a2'] });
+StoryMap.set('33a2', { id: '33a2', label: 'Figure', savePoint: ['26b'], isDeath: true });
+StoryMap.set('33b', { id: '33b', label: 'Elevator', children: ['33b1'] });
+StoryMap.set('33b1', { id: '33b1', label: 'Use Key', children: ['33b2'] });
+StoryMap.set('33b2', { id: '33b2', label: 'Use Elevator', children: ['33b3'] });
+StoryMap.set('33b3', { id: '33b3', label: '1F', children: ['33b4'], isNarration: true });
+StoryMap.set('33b4', { id: '33b4', label: 'Exit Building', children: ['33b5'] });
+StoryMap.set('33b5', { id: '33b5', label: 'Red Car', children: ['34a', '34b'] });
+StoryMap.set('34a', { id: '34a', label: 'Run Away', children: ['35'] });
+StoryMap.set('34b', { id: '34b', label: 'Drive Away', children: ['25w'] });
+StoryMap.set('35', { id: '35', label: 'Ending (Good)' });
