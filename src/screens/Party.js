@@ -33,12 +33,12 @@ const scene2 = [
 
 const scene2DrinkIntro = [
   { id: 22, label: "As you finish inhaling an absurd amount of ever clear..." },
-  { id: 23, label: "your head spins." },
+  { id: 23, label: "your head starts to spin." },
 ];
 
 const scene2RefuseIntro = [
   { id: 24, label: "As you push away the drink..." },
-  { id: 25, label: "your head spins."},
+  { id: 25, label: "your head starts to spin."},
 ];
 
 let sentenceToDisplay = "";
