@@ -1,20 +1,26 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, } from 'react-native';
+import {
+  View, StyleSheet, TouchableHighlight, Alert,
+  Modal, Text,
+} from 'react-native';
 import Log from '../components/Log';
 import Choices from '../components/Choices';
 import StoryMap from '../model/Tree';
 import { Color, Delay } from '../constants';
 import Death from '../screens/Death';
 import Party from '../screens/Party';
+import VendingKeypad from '../components/VendingKeypad';
 
-const Story = ({navigation, route}) => {
+const Story = ({ navigation, route }) => {
   const [logs, setLogs] = useState([]);
   const [currentNode, setCurrentNode] = useState(StoryMap.get('0'));
   const [deathCount, setDeathCount] = useState(0);
   const [showDeathScreen, setShowDeathScreen] = useState(false);
   const [showPartyScreen, setShowPartyScreen] = useState(false);
   const [partyDecision, setPartyDecision] = useState("");
+  const [modalVisible, setModalVisible] = useState(false);
+  const [vendingInput, setVendingInput] = useState('');
 
   const choiceHandler = (node) => {
     setCurrentNode(StoryMap.get(node.id)); // Update Node
@@ -28,9 +34,10 @@ const Story = ({navigation, route}) => {
       partyScreenHandler(true);
       setPartyDecision(node?.label);
       setCurrentNode(StoryMap.get(node?.children[0]));
-    } 
+    }
     else {  // Nondeath Node
       handleNarration(node);
+      handleVending(node);
     }
   };
 
@@ -41,8 +48,30 @@ const Story = ({navigation, route}) => {
         setCurrentNode(StoryMap.get(node.children[0]));
         handleNarration(StoryMap.get(node.children[0]));
       }, Delay.MED_DELAY);
-    } 
+    }
   };
+
+  const handleVending = (node) => {
+    if (node.label === "Vending Machine") {
+      setModalVisible(true);
+    }
+  }
+  const handleVendingInput = (code) => {
+    setVendingInput(code);
+    switch(code) {
+      case '69': 
+        console.log(StoryMap.get('8aa'));
+        choiceHandler(StoryMap.get('8aa'));
+        break;
+      case '53': 
+        console.log(StoryMap.get('8ab'));
+        choiceHandler(StoryMap.get('8ab'));
+        break;
+      default: 
+        console.log(StoryMap.get('8ac'));
+        choiceHandler(StoryMap.get('8ac'));
+    }
+  }
 
   const addWordHandler = (node) => {
     setLogs(prevLogs => {
@@ -75,7 +104,7 @@ const Story = ({navigation, route}) => {
   const renderScreen = () => {
     if (showDeathScreen) {
       return (
-        <Death 
+        <Death
           deathCount={deathCount}
           showDeathScreen={deathScreenHandler}
           resetGame={resetGameHandler}
@@ -85,7 +114,7 @@ const Story = ({navigation, route}) => {
       return (
         <Party
           currentScene={currentNode}
-          partyDecision={partyDecision} 
+          partyDecision={partyDecision}
           showPartyScene={partyScreenHandler}
           font={route.params.font}
         />
@@ -93,43 +122,31 @@ const Story = ({navigation, route}) => {
     } else {
       return (
         <View style={styles.container}>
-          <Log 
+          <Log
             data={logs}
             font={route.params.font}
           />
-          <Choices 
+          <Choices
             children={currentNode?.children}
             onPress={choiceHandler}
             storyMap={StoryMap}
             font={route.params.font}
           />
+          {modalVisible && <VendingKeypad modalVisible={modalVisible} setModalVisible={setModalVisible} handleVendingInput={handleVendingInput} />}
+          {/* <TouchableHighlight
+            style={styles.openButton}
+            onPress={() => {
+              setModalVisible(true);
+            }}
+          >
+            <Text style={styles.textStyle}>Show Modal</Text>
+          </TouchableHighlight> */}
         </View>
       )
     }
-  };
+  }; // The commented button is for testing the vending machine 
 
   return renderScreen();
-
-  // return showDeathScreen ? 
-  //   <Death
-  //     deathCount={deathCount}
-  //     showDeathScreen={deathScreenHandler}
-  //     resetGame={resetGameHandler}
-  //   /> : 
-  //   (
-  //     <View style={styles.container}>
-  //       <Log
-  //         data={logs}
-  //         font={route.params.font}
-  //       />
-  //       <Choices
-  //         children={currentNode?.children}
-  //         onPress={choiceHandler}
-  //         storyMap={StoryMap}
-  //         font={route.params.font}
-  //       />
-  //     </View>
-  //   )
 };
 
 const styles = StyleSheet.create({
