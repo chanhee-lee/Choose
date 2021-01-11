@@ -11,6 +11,7 @@ import { Color, Delay } from '../constants';
 import Death from '../screens/Death';
 import Party from '../screens/Party';
 import VendingKeypad from '../components/VendingKeypad';
+import Ending from '../screens/Ending';
 
 const Story = ({ navigation, route }) => {
   const [logs, setLogs] = useState([]);
@@ -18,7 +19,9 @@ const Story = ({ navigation, route }) => {
   const [deathCount, setDeathCount] = useState(0);
   const [showDeathScreen, setShowDeathScreen] = useState(false);
   const [showPartyScreen, setShowPartyScreen] = useState(false);
+  const [showEndingScreen, setShowEndingScreen] = useState(false);
   const [partyDecision, setPartyDecision] = useState("");
+  const [endingDecision, setEndingDecision] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [vendingInput, setVendingInput] = useState('');
 
@@ -26,16 +29,19 @@ const Story = ({ navigation, route }) => {
     setCurrentNode(StoryMap.get(node.id)); // Update Node
     addWordHandler(node);
     console.log("Node: ", node.label);
-    if (node?.isDeath) {  // Death Node
+    if (node?.isDeath) {  // Death Scene Node
       deathCountHandler();
       deathScreenHandler(true);
       setCurrentNode(StoryMap.get(node.savePoint[0]));
-    } else if (node?.isPartyScene) {  // Party Node
+    } else if (node?.isPartyScene) {  // Party Scene Node
       partyScreenHandler(true);
       setPartyDecision(node?.label);
       setCurrentNode(StoryMap.get(node?.children[0]));
-    }
-    else {  // Nondeath Node
+    } else if (node?.isEndingScene) { // Ending Scene Node
+      endingScreenHandler(true);
+      setEndingDecision(node?.label);
+      setCurrentNode(StoryMap.get(node?.savePoint[0]));
+    } else {  // Nondeath Node
       handleNarration(node);
       handleVending(node);
     }
@@ -101,6 +107,10 @@ const Story = ({ navigation, route }) => {
     setShowPartyScreen(val);
   };
 
+  const endingScreenHandler = (val) => {
+    setShowEndingScreen(val);
+  };
+
   const renderScreen = () => {
     if (showDeathScreen) {
       return (
@@ -119,6 +129,14 @@ const Story = ({ navigation, route }) => {
           font={route.params.font}
         />
       );
+    } else if (showEndingScreen) {
+      return (
+        <Ending
+          endingDecision={endingDecision}
+          showEndingScene={endingScreenHandler}
+          font={route.params.font}
+        />
+      )
     } else {
       return (
         <View style={styles.container}>
