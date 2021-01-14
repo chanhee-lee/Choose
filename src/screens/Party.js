@@ -15,9 +15,9 @@ const Party = ({currentScene, partyDecision, showPartyScene, font}) => {
     partyScene = PartyText.scene1;
   } else if (currentScene?.label === "Party Scene 2") {
     if (partyDecision === "Take Drink") {
-      partyScene = PartyText.scene2DrinkIntro.concat(PartyText.scene2);
+      partyScene = [...PartyText.scene2DrinkIntro, ...PartyText.scene2];
     } else if (partyDecision === "Refuse") {
-      partyScene = PartyText.scene2RefuseIntro.concat(PartyText.scene2);
+      partyScene = [...PartyText.scene2RefuseIntro, ...PartyText.scene2]
     } else {
       partyScene = PartyText.scene2;
     }

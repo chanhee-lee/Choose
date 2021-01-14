@@ -209,7 +209,7 @@ StoryMap.set('32', { id: '32', label: 'Keys', children: ['33'] });
 StoryMap.set('33', { id: '33', label: 'Leave Room', children: ['33a', '33b'] });
 StoryMap.set('33a', { id: '33a', label: 'Stairs', children: ['33a1'] });
 StoryMap.set('33a1', { id: '33a1', label: 'Down', children: ['33a2'] });
-StoryMap.set('33a2', { id: '33a2', label: 'Figure', savePoint: ['26b'], isDeath: true });
+StoryMap.set('33a2', { id: '33a2', label: 'Figure', savePoint: ['26a'], isDeath: true });
 StoryMap.set('33b', { id: '33b', label: 'Elevator', children: ['33b1'] });
 StoryMap.set('33b1', { id: '33b1', label: 'Use Key', children: ['33b2'] });
 StoryMap.set('33b2', { id: '33b2', label: 'Use Elevator', children: ['33b3'] });
