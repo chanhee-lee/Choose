@@ -14,6 +14,7 @@ import { Size } from '../constants';
 // isDeath: null, 
 // isPartyScene: null,
 // isVendingMachine: null,
+// isEndingScene: null,
 
 /** This file contains the story in a map format. The data structure is a tree.
  *  Given an id, it will return the corresponding node */
@@ -180,8 +181,7 @@ StoryMap.set('25s1', { id: '25s1', label: 'Leave Room', children: ['25s2'] });
 StoryMap.set('25s2', { id: '25s2', label: 'Figure', savePoint: ['25l'], isDeath: true });
 StoryMap.set('25t', { id: '25t', label: 'Fall', children: ['25u'], isNarration: true });
 StoryMap.set('25u', { id: '25u', label: 'Legs Broken', children: ['25v'], isNarration: true });
-StoryMap.set('25v', { id: '25v', label: 'Crawl Away', children: ['25w'] });
-StoryMap.set('25w', { id: '25w', label: 'Ending (Bad)' });
+StoryMap.set('25v', { id: '25v', label: 'Crawl Away', children: ['25w'], savePoint: ['1'], isEndingScene: true });
 
 // Good Ending Path
 StoryMap.set('26', { id: '26', label: 'Find', children: ['26a'] });
@@ -209,13 +209,12 @@ StoryMap.set('32', { id: '32', label: 'Keys', children: ['33'] });
 StoryMap.set('33', { id: '33', label: 'Leave Room', children: ['33a', '33b'] });
 StoryMap.set('33a', { id: '33a', label: 'Stairs', children: ['33a1'] });
 StoryMap.set('33a1', { id: '33a1', label: 'Down', children: ['33a2'] });
-StoryMap.set('33a2', { id: '33a2', label: 'Figure', savePoint: ['26b'], isDeath: true });
+StoryMap.set('33a2', { id: '33a2', label: 'Figure', savePoint: ['26a'], isDeath: true });
 StoryMap.set('33b', { id: '33b', label: 'Elevator', children: ['33b1'] });
 StoryMap.set('33b1', { id: '33b1', label: 'Use Key', children: ['33b2'] });
 StoryMap.set('33b2', { id: '33b2', label: 'Use Elevator', children: ['33b3'] });
 StoryMap.set('33b3', { id: '33b3', label: '1F', children: ['33b4'], isNarration: true });
 StoryMap.set('33b4', { id: '33b4', label: 'Exit Building', children: ['33b5'] });
 StoryMap.set('33b5', { id: '33b5', label: 'Red Car', children: ['34a', '34b'] });
-StoryMap.set('34a', { id: '34a', label: 'Run Away', children: ['35'] });
-StoryMap.set('34b', { id: '34b', label: 'Drive Away', children: ['25w'] });
-StoryMap.set('35', { id: '35', label: 'Ending (Good)' });
+StoryMap.set('34a', { id: '34a', label: 'Run Away', children: ['35'], savePoint: ['1'], isEndingScene: true });
+StoryMap.set('34b', { id: '34b', label: 'Drive Away', children: ['25w'], savePoint: ['1'], isEndingScene: true });

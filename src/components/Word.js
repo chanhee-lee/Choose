@@ -1,14 +1,17 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import {Color} from '../constants';
 
-const Word = ({label, font}) => {
-  return (
-    <View>
-      <Text style={{...styles.text, ...font}}>{label}</Text>
-    </View>
-  )
-}
+class Word extends PureComponent {
+  render() {
+    const { label, font } = this.props;
+    return (
+      <View>
+        <Text style={{...styles.text, ...font}}>{label}</Text>
+      </View>
+    );
+  };
+};
 
 const styles = StyleSheet.create({
   text: {

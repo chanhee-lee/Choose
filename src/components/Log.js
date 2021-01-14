@@ -20,7 +20,7 @@ const Log = ({data, font}) => {
         ref={flatList => { fList = flatList; }}
         onContentSizeChange={() => {
           fList.scrollToEnd();
-      }}
+        }}
       />
     </SafeAreaView>
   )
