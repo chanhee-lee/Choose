@@ -7,8 +7,9 @@ const Log = ({data, font}) => {
   let fList;
 
   const renderItem = ({item}) => {
+    console.log("item: ", item);
     return (
-      <Word label={item.label} font={font}/>
+      <Word label={item.label} font={font} isNarration={item?.isNarration}/>
     );
   }
 

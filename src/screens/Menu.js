@@ -74,7 +74,7 @@ const Menu = (props) => {
         font: styles.cabinFont
       })
     }
-    storeData('checkpoint', checkpoint);
+    // storeData('checkpoint', {"hello": "hello"});
   }
 
   return (
