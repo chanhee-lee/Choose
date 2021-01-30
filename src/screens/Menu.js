@@ -9,7 +9,7 @@ import {
   Cabin_700Bold,
   Cabin_700Bold_Italic
 } from '@expo-google-fonts/cabin';
-import { storeData } from '../model/DataStorage';
+import { storeData, getData } from '../model/DataStorage';
 import { AppLoading } from 'expo';
 
 const Menu = (props) => {
@@ -36,6 +36,8 @@ const Menu = (props) => {
   function isEmpty(obj) {
     return Object.keys(obj).length === 0;
   }
+
+  // Use useEffect to load shit
 
   // Main Functions
   function newStory() {
@@ -74,7 +76,8 @@ const Menu = (props) => {
         font: styles.cabinFont
       })
     }
-    // storeData('checkpoint', {"hello": "hello"});
+    storeData('checkpoint', {"hello": "hello"});
+    console.log("promise: ", getData('checkpoint'));
   }
 
   return (
