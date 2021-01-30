@@ -108,7 +108,7 @@ const Story = ({ navigation, route }) => {
     setShowPartyScreen(val);
   };
 
-  const endingScreenHandler = (val) => {
+  const endingScreenHandler = async (val) => {
     setShowEndingScreen(val);
     resetGameHandler();
   };
@@ -137,6 +137,7 @@ const Story = ({ navigation, route }) => {
           endingDecision={endingDecision}
           showEndingScene={endingScreenHandler}
           font={route.params.font}
+          navigation={navigation}
         />
       )
     } else {
