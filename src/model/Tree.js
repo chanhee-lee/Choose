@@ -16,6 +16,8 @@ import { Size } from '../constants';
 // isVendingMachine: null,
 // isEndingScene: null,
 
+//NOTE: Ignoring font style because we changed our minds
+
 /** This file contains the story in a map format. The data structure is a tree.
  *  Given an id, it will return the corresponding node */
 export default StoryMap = new Map();

@@ -1,13 +1,13 @@
 import React, { PureComponent } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import {Color} from '../constants';
+import { Color } from '../constants';
 
 class Word extends PureComponent {
   render() {
-    const { label, font } = this.props;
+    const { label, font, isNarration } = this.props;
     return (
       <View>
-        <Text style={{...styles.text, ...font}}>{label}</Text>
+        <Text style={{ ...styles.text, ...font, fontStyle: isNarration ? 'italic' : null }}>{label}</Text>
       </View>
     );
   };

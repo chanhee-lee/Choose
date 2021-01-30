@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   View, StyleSheet, TouchableHighlight, Alert,
   Modal, Text,
@@ -24,11 +24,11 @@ const Story = ({ navigation, route }) => {
   const [endingDecision, setEndingDecision] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [vendingInput, setVendingInput] = useState('');
+  const choicesRef = useRef();
 
   const choiceHandler = (node) => {
     setCurrentNode(StoryMap.get(node.id)); // Update Node
     addWordHandler(node);
-    console.log("Node: ", node.label);
     if (node?.isDeath) {  // Death Scene Node
       deathCountHandler();
       deathScreenHandler(true);
@@ -49,11 +49,15 @@ const Story = ({ navigation, route }) => {
 
   const handleNarration = (node) => {
     if (node?.children && node?.children.length == 1 && StoryMap.get(node.children[0]).isNarration) { // Narration will be an only child
-      setTimeout(() => {
-        addWordHandler(StoryMap.get(node.children[0]));
-        setCurrentNode(StoryMap.get(node.children[0]));
-        handleNarration(StoryMap.get(node.children[0]));
-      }, Delay.MED_DELAY);
+      if (node?.children && node?.children.length == 1 && StoryMap.get(node.children[0]).isNarration) { // Narration will be an only child
+        choicesRef?.current?.setBDisabled(true);
+        setTimeout(() => {
+          choicesRef?.current?.setBDisabled(false);
+          addWordHandler(StoryMap.get(node.children[0]));
+          setCurrentNode(StoryMap.get(node.children[0]));
+          handleNarration(StoryMap.get(node.children[0]));
+        }, Delay.MED_DELAY);
+      }
     }
   };
 
@@ -64,17 +68,14 @@ const Story = ({ navigation, route }) => {
   }
   const handleVendingInput = (code) => {
     setVendingInput(code);
-    switch(code) {
-      case '69': 
-        console.log(StoryMap.get('8aa'));
+    switch (code) {
+      case '69':
         choiceHandler(StoryMap.get('8aa'));
         break;
-      case '53': 
-        console.log(StoryMap.get('8ab'));
+      case '53':
         choiceHandler(StoryMap.get('8ab'));
         break;
-      default: 
-        console.log(StoryMap.get('8ac'));
+      default:
         choiceHandler(StoryMap.get('8ac'));
     }
   }
@@ -149,6 +150,7 @@ const Story = ({ navigation, route }) => {
             onPress={choiceHandler}
             storyMap={StoryMap}
             font={route.params.font}
+            ref={choicesRef}
           />
           {modalVisible && <VendingKeypad modalVisible={modalVisible} setModalVisible={setModalVisible} handleVendingInput={handleVendingInput} />}
           {/* <TouchableHighlight
