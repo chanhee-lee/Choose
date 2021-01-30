@@ -9,6 +9,7 @@ import {
   Cabin_700Bold,
   Cabin_700Bold_Italic
 } from '@expo-google-fonts/cabin';
+import { storeData } from '../model/DataStorage';
 import { AppLoading } from 'expo';
 
 const Menu = (props) => {
@@ -73,6 +74,7 @@ const Menu = (props) => {
         font: styles.cabinFont
       })
     }
+    storeData('checkpoint', checkpoint);
   }
 
   return (

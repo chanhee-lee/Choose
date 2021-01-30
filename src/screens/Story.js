@@ -24,6 +24,7 @@ const Story = ({ navigation, route }) => {
   const [endingDecision, setEndingDecision] = useState("");
   const [modalVisible, setModalVisible] = useState(false);
   const [vendingInput, setVendingInput] = useState('');
+  const choicesRef = useRef();
 
   const choiceHandler = (node) => {
     setCurrentNode(StoryMap.get(node.id)); // Update Node
@@ -49,7 +50,9 @@ const Story = ({ navigation, route }) => {
 
   const handleNarration = (node) => {
     if (node?.children && node?.children.length == 1 && StoryMap.get(node.children[0]).isNarration) { // Narration will be an only child
+      //choicesRef.current.setButtonDisabled(true);
       setTimeout(() => {
+        //choicesRef.current.setButtonDisabled(false);
         addWordHandler(StoryMap.get(node.children[0]));
         setCurrentNode(StoryMap.get(node.children[0]));
         handleNarration(StoryMap.get(node.children[0]));
@@ -149,6 +152,7 @@ const Story = ({ navigation, route }) => {
             onPress={choiceHandler}
             storyMap={StoryMap}
             font={route.params.font}
+            ref={choicesRef}
           />
           {modalVisible && <VendingKeypad modalVisible={modalVisible} setModalVisible={setModalVisible} handleVendingInput={handleVendingInput} />}
           {/* <TouchableHighlight

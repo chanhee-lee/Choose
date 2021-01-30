@@ -1,14 +1,15 @@
-import React from 'react';
+import React, {useState, forwardRef} from 'react';
 import { Text, View, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import {Color} from '../constants';
 import Divider from '../components/Divider';
 
-const Choices = ({ children, onPress, storyMap, font }) => { // Receives node, returns children as buttons
+const Choices = forwardRef(({ children, onPress, storyMap, font }, ref) => { // Receives node, returns children as buttons
+  const [buttonDisabled, setButtonDisabled] = useState(false);
   let choiceList = children?.map(function (childNodeRef) {
     let chosenNode = storyMap.get(childNodeRef);
     return (
       chosenNode &&
-      <TouchableOpacity onPress={() => onPress(chosenNode)} style={styles.button}>
+      <TouchableOpacity disabled={buttonDisabled} onPress={() => onPress(chosenNode)} style={styles.button}>
         <Text style={{ ...styles.text, ...font }}>{chosenNode.label}</Text>
       </TouchableOpacity>
     )
@@ -23,7 +24,7 @@ const Choices = ({ children, onPress, storyMap, font }) => { // Receives node, r
       <Divider />
     </View>
   )
-};
+});
 
 const styles = StyleSheet.create({
   wrapper: {
