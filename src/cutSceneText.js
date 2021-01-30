@@ -1,4 +1,16 @@
 // Text for the cut scenes
+export const DeathText = {
+  1: ["House", "Music", "Fun"],
+  2: ["Friends", "Talking", "Dancing"],
+  3: ["Games", "Partying", "Drinking"],
+  4: ["Sister"],
+  5: ["Car", "Driving", "Promise"],
+  6: ["Sirens"],
+  7: ["Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead"],
+  8: ["Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty"],
+  9: ["Game Over"],
+};
+
 export const PartyText = {
   scene1: [
     { id: 1,  label: "As soon as you step into the house..." },

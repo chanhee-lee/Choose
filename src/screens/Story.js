@@ -15,7 +15,7 @@ import Ending from '../screens/Ending';
 
 const Story = ({ navigation, route }) => {
   const [logs, setLogs] = useState([]);
-  const [currentNode, setCurrentNode] = useState(StoryMap.get('0'));
+  const [currentNode, setCurrentNode] = useState(StoryMap.get('33b4'));
   const [deathCount, setDeathCount] = useState(0);
   const [showDeathScreen, setShowDeathScreen] = useState(false);
   const [showPartyScreen, setShowPartyScreen] = useState(false);
@@ -40,7 +40,6 @@ const Story = ({ navigation, route }) => {
     } else if (node?.isEndingScene) { // Ending Scene Node
       endingScreenHandler(true);
       setEndingDecision(node?.label);
-      setCurrentNode(StoryMap.get(node?.savePoint[0]));
     } else {  // Nondeath Node
       handleNarration(node);
       handleVending(node);
@@ -90,7 +89,7 @@ const Story = ({ navigation, route }) => {
 
     // Resets game after 9 deaths
     if (deathCount === 9) {
-      setDeathCount(0);
+      resetGameHandler();
     }
   };
 
@@ -101,6 +100,7 @@ const Story = ({ navigation, route }) => {
   const resetGameHandler = () => {
     setCurrentNode(StoryMap.get('0'));
     setLogs([]);
+    setDeathCount(0);
   };
 
   const partyScreenHandler = (val) => {
@@ -109,6 +109,7 @@ const Story = ({ navigation, route }) => {
 
   const endingScreenHandler = (val) => {
     setShowEndingScreen(val);
+    resetGameHandler();
   };
 
   const renderScreen = () => {
