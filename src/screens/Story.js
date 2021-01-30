@@ -15,7 +15,7 @@ import Ending from '../screens/Ending';
 
 const Story = ({ navigation, route }) => {
   const [logs, setLogs] = useState([]);
-  const [currentNode, setCurrentNode] = useState(StoryMap.get('33b4'));
+  const [currentNode, setCurrentNode] = useState(StoryMap.get('0'));
   const [deathCount, setDeathCount] = useState(0);
   const [showDeathScreen, setShowDeathScreen] = useState(false);
   const [showPartyScreen, setShowPartyScreen] = useState(false);
