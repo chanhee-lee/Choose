@@ -183,7 +183,7 @@ StoryMap.set('25s1', { id: '25s1', label: 'Leave Room', children: ['25s2'] });
 StoryMap.set('25s2', { id: '25s2', label: 'Figure', savePoint: ['25l'], isDeath: true });
 StoryMap.set('25t', { id: '25t', label: 'Fall', children: ['25u'], isNarration: true });
 StoryMap.set('25u', { id: '25u', label: 'Legs Broken', children: ['25v'], isNarration: true });
-StoryMap.set('25v', { id: '25v', label: 'Crawl Away', children: ['25w'], savePoint: ['1'], isEndingScene: true });
+StoryMap.set('25v', { id: '25v', label: 'Crawl Away', children: ['25w'], isEndingScene: true });
 
 // Good Ending Path
 StoryMap.set('26', { id: '26', label: 'Find', children: ['26a'] });
@@ -218,5 +218,5 @@ StoryMap.set('33b2', { id: '33b2', label: 'Use Elevator', children: ['33b3'] });
 StoryMap.set('33b3', { id: '33b3', label: '1F', children: ['33b4'], isNarration: true });
 StoryMap.set('33b4', { id: '33b4', label: 'Exit Building', children: ['33b5'] });
 StoryMap.set('33b5', { id: '33b5', label: 'Red Car', children: ['34a', '34b'] });
-StoryMap.set('34a', { id: '34a', label: 'Run Away', children: ['35'], savePoint: ['1'], isEndingScene: true });
-StoryMap.set('34b', { id: '34b', label: 'Drive Away', children: ['25w'], savePoint: ['1'], isEndingScene: true });
+StoryMap.set('34a', { id: '34a', label: 'Run Away', children: ['35'], isEndingScene: true });
+StoryMap.set('34b', { id: '34b', label: 'Drive Away', children: ['25w'], isEndingScene: true });

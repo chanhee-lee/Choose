@@ -2,21 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ImageBackground, Text } from 'react-native';
 import { Dimensions } from 'react-native';
 import { Color, Delay } from '../constants';
+import { DeathText } from '../cutSceneText';
 
 // Constants
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;
-const deathScenes = {
-  "1": ["House", "Music", "Fun"],
-  "2": ["Friends", "Talking", "Dancing"],
-  "3": ["Games", "Partying", "Drinking"],
-  "4": ["Sister"],
-  "5": ["Car", "Driving", "Promise"],
-  "6": ["Sirens"],
-  "7": ["Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead", "Dead"],
-  "8": ["Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty", "Guilty"],
-  "9": ["Game Over"]
-};
 
 let wordsList = [];
 let delay = Delay.SLOW_DELAY;
@@ -47,10 +37,10 @@ const Death = ({ deathCount, showDeathScreen, resetGame }) => {
 
   // Adds words to the screen with a delay
   useEffect(() => {
-    let word = deathScenes[deathCount][index];
+    let word = DeathText[deathCount][index];
 
     // Death Screens
-    index < deathScenes[deathCount].length && deathCount < 9 && setTimeout(() => {
+    index < DeathText[deathCount].length && deathCount < 9 && setTimeout(() => {
       wordsList.push(<Text key={index} style={{...styles.regularText, ...generateRandomPosition()}}>{word}</Text>);
       setIndex(prevIndex => prevIndex + 1);
 
@@ -59,14 +49,14 @@ const Death = ({ deathCount, showDeathScreen, resetGame }) => {
     }, delay);
 
     // Game Over Screen
-    index < deathScenes[deathCount].length && deathCount === 9 && setTimeout(() => {
+    index < DeathText[deathCount].length && deathCount === 9 && setTimeout(() => {
       wordsList.push(<Text key={index} style={{...styles.gameOverText}}>{word}</Text>)
       setIndex(prevIndex => prevIndex + 1);
       resetGame();
     }, delay);
 
     // Stops showing death screen with delay
-    index >= deathScenes[deathCount].length && setTimeout(() => {
+    index >= DeathText[deathCount].length && setTimeout(() => {
       showDeathScreen(false);
       wordsList = [];
       return () => setIndex(0);
