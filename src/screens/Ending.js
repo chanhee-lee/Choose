@@ -7,7 +7,7 @@ import { EndingText } from '../cutSceneText';
 let sentenceToDisplay = "";
 let endingScene = [];
 
-const Ending = ({endingDecision, showEndingScene, font}) => {
+const Ending = ({navigation, endingDecision, showEndingScene, font}) => {
   const [index, setIndex] = useState(0);
 
   // Sets up the Ending Scene text
@@ -36,6 +36,7 @@ const Ending = ({endingDecision, showEndingScene, font}) => {
     index >= endingScene.length && setTimeout(() => {
       showEndingScene(false);
       sentenceToDisplay = "";
+      navigation.navigate('Menu');
     }, Delay.ENDING_DELAY);
   })
 
