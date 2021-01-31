@@ -1,10 +1,27 @@
 import React from 'react';
-import { Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { Color } from '../constants';
 
-const Settings = ({navigation, route}) => {
+export default function Settings({navigation, route}) {
   return (
-    <Text>SETTINGS</Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>Settings {'\n'}Coming Soon</Text>
+    </View>
   );
 }
 
-export default Settings;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: Color.primary,
+    fontFamily: "Cabin_500Medium"
+  },
+  text: {
+    textAlign: 'center',
+    fontFamily: "Cabin_500Medium",
+    fontSize: 32,
+    color: Color.secondary
+  }
+})

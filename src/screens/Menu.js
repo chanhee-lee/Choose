@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useLayoutEffect } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import { Text, StyleSheet, View, Alert } from 'react-native';
 import MenuButton from '../components/MenuButton';
 import { Color } from '../constants';
@@ -13,7 +14,24 @@ import {
 import { storeData, getData } from '../model/DataStorage';
 import { AppLoading } from 'expo';
 
+
 const Menu = (props) => {
+  const [currentNode, setCurrentNode] = useState({});
+
+  if (isEmpty(currentNode)) {
+    getData('currentNode').then((data) => {
+      setCurrentNode(data);
+    })
+  }
+
+  // Every time this page is navigated to, refresh currentNode
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    getData('currentNode').then((data) => {
+      setCurrentNode(data);
+    })
+  }, [isFocused])
+
   function resetGame() {
     storeData('deathCount', 0);
     storeData('settings', {});
@@ -38,7 +56,6 @@ const Menu = (props) => {
   // Main Functions
   function newStory() {
     let reset = true;
-    resetGame();
     getData('currentNode').then((data) => {
       if (data.id !== "0") { // if there's a story, ask first 
         Alert.alert(
@@ -80,6 +97,7 @@ const Menu = (props) => {
           style={styles.button}
         />
         <MenuButton
+          disabled={currentNode.id === '0'}
           onPress={() => props.navigation.navigate('Continue Story', {
             isContinue: true,
             font: Cabin_500Medium
@@ -89,22 +107,18 @@ const Menu = (props) => {
         />
         <MenuButton
           onPress={() => props.navigation.navigate('Achievements', {
-            achievements: achievements,
-            setAchievements: setAchievements,
             font: Cabin_500Medium
           })}
           style={styles.button}
           title="Achievements"
         />
-        <MenuButton
+        {/* <MenuButton
           onPress={() => props.navigation.navigate('Settings', {
-            settings: settings,
-            setSettings: setSettings,
             font: Cabin_500Medium
           })}
           style={styles.button}
           title="Settings"
-        />
+        /> */}
       </View>
   );
 }
@@ -114,7 +128,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: Color.primary,
-    fontFamily: "Cabin_500Medium_Italic"
+    fontFamily: "Cabin_500Medium_Italic",
+    paddingBottom: 80
   },
   title: {
     fontFamily: "Cabin_500Medium_Italic",

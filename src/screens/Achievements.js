@@ -1,10 +1,27 @@
 import React from 'react';
-import { View, Button, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
+import { Color } from '../constants';
 
 export default function Achievements({navigation, route}) {
   return (
-    <View>
-      <Text>Achievements</Text>
+    <View style={styles.container}>
+      <Text style={styles.text}>Achievements {'\n'}Coming Soon</Text>
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: Color.primary,
+    fontFamily: "Cabin_500Medium"
+  },
+  text: {
+    textAlign: 'center',
+    fontFamily: "Cabin_500Medium",
+    fontSize: 32,
+    color: Color.secondary
+  }
+})

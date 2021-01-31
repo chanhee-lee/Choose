@@ -2,10 +2,10 @@ import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import {Color} from '../constants';
 
-const MenuButton = ({ onPress, title, style }) => {
+const MenuButton = ({ onPress, title, style, disabled }) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.button}>
-      <Text style={{...styles.text, ...style}}>{title}</Text>
+    <TouchableOpacity disabled={disabled} onPress={onPress} style={styles.button}>
+      <Text style={{...styles.text, ...style, color: disabled ? 'grey' : 'white'}}>{title}</Text>
     </TouchableOpacity>
   )
 }

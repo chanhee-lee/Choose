@@ -1,8 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect, useRef } from 'react';
 import {
-  View, StyleSheet, TouchableHighlight, Alert,
-  Modal, Text,
+  View, StyleSheet
 } from 'react-native';
 import { storeData, getData } from '../model/DataStorage';
 import Log from '../components/Log';
