@@ -15,7 +15,7 @@ export const getData = async (id) => {
     if (id) {
         try {
             const data = await AsyncStorage.getItem(id);
-            return data;
+            return JSON.parse(data);
         } catch (error) {
             console.log("Failed to get: ", error.message);
         }

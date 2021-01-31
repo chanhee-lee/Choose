@@ -4,6 +4,7 @@ import {
   View, StyleSheet, TouchableHighlight, Alert,
   Modal, Text,
 } from 'react-native';
+import { storeData, getData } from '../model/DataStorage';
 import Log from '../components/Log';
 import Choices from '../components/Choices';
 import StoryMap from '../model/Tree';
@@ -14,9 +15,10 @@ import VendingKeypad from '../components/VendingKeypad';
 import Ending from '../screens/Ending';
 
 const Story = ({ navigation, route }) => {
-  const [logs, setLogs] = useState([]);
-  const [currentNode, setCurrentNode] = useState(StoryMap.get('0'));
-  const [deathCount, setDeathCount] = useState(0);
+  const [logs, setLogs] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [currentNode, setCurrentNode] = useState({});
+  const [deathCount, setDeathCount] = useState(-1);
   const [showDeathScreen, setShowDeathScreen] = useState(false);
   const [showPartyScreen, setShowPartyScreen] = useState(false);
   const [showEndingScreen, setShowEndingScreen] = useState(false);
@@ -25,26 +27,77 @@ const Story = ({ navigation, route }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [vendingInput, setVendingInput] = useState('');
   const choicesRef = useRef();
+  console.log("REE");
+  // Populate current node state from storage
+  if (Object.keys(currentNode).length === 0 && currentNode.constructor === Object) { // If currentNode is {}
+    getData('currentNode').then((data) => {
+      setCurrentNode(data);
+      setLoading(false);
+    })
+  }
+
+  // Populate logs state from storage
+  if (!logs) {
+    getData('logs').then(data => {
+      setLogs(data);
+      setLoading(false);
+    })
+  }
+
+  // Populate death state from storage
+  if (deathCount === -1) {
+    getData('deathCount').then(data => {
+      setDeathCount(data);
+    })
+  }
+
+  const updateCurrentNode = (node) => {
+    setCurrentNode(node);
+    storeData('currentNode', node);
+  }
+
+  const updateLogs = (node) => {
+    setLogs(prevLogs => {
+      storeData('logs', [...prevLogs, node])
+      return [...prevLogs, node];
+    });
+  }
 
   const choiceHandler = (node) => {
-    setCurrentNode(StoryMap.get(node.id)); // Update Node
     addWordHandler(node);
     if (node?.isDeath) {  // Death Scene Node
       deathCountHandler();
+      updateLogAfterDeath(node);
       deathScreenHandler(true);
-      setCurrentNode(StoryMap.get(node.savePoint[0]));
+      updateCurrentNode(StoryMap.get(node.savePoint[0]));
     } else if (node?.isPartyScene) {  // Party Scene Node
       partyScreenHandler(true);
       setPartyDecision(node?.label);
-      setCurrentNode(StoryMap.get(node?.children[0]));
+      updateCurrentNode(StoryMap.get(node?.children[0]));
     } else if (node?.isEndingScene) { // Ending Scene Node
       endingScreenHandler(true);
       setEndingDecision(node?.label);
-    } else {  // Nondeath Node
+    } else {  // Regular Node
+      updateCurrentNode(node);
       handleNarration(node);
       handleVending(node);
     }
   };
+
+  const updateLogAfterDeath = (node) => {
+    let savePointIndex = -1;
+    for (var index = 0; index < logs.length; index++) {
+      if (logs[index].label === StoryMap.get(node.savePoint[0]).label) {
+        savePointIndex = index;
+        break;
+      }
+    }
+    if (savePointIndex != -1) {
+      logs.splice(savePointIndex + 1, logs.length - savePointIndex - 1);
+      storeData('logs', logs);
+      setLogs(logs);
+    }
+  }
 
   const handleNarration = (node) => {
     if (node?.children && node?.children.length == 1 && StoryMap.get(node.children[0]).isNarration) { // Narration will be an only child
@@ -53,7 +106,7 @@ const Story = ({ navigation, route }) => {
         setTimeout(() => {
           choicesRef?.current?.setBDisabled(false);
           addWordHandler(StoryMap.get(node.children[0]));
-          setCurrentNode(StoryMap.get(node.children[0]));
+          updateCurrentNode(StoryMap.get(node.children[0]));
           handleNarration(StoryMap.get(node.children[0]));
         }, Delay.MED_DELAY);
       }
@@ -80,18 +133,11 @@ const Story = ({ navigation, route }) => {
   }
 
   const addWordHandler = (node) => {
-    setLogs(prevLogs => {
-      return [...prevLogs, node];
-    });
+    updateLogs(node);
   };
 
   const deathCountHandler = () => {
     setDeathCount(prevCount => prevCount + 1);
-
-    // Resets game after 9 deaths
-    if (deathCount === 9) {
-      resetGameHandler();
-    }
   };
 
   const deathScreenHandler = (val) => {
@@ -99,9 +145,12 @@ const Story = ({ navigation, route }) => {
   };
 
   const resetGameHandler = () => {
-    setCurrentNode(StoryMap.get('0'));
-    setLogs([]);
-    setDeathCount(0);
+    storeData('deathCount', 0);
+    storeData('settings', {});
+    storeData('checkpoint', {});
+    storeData('currentNode', StoryMap.get('0'));
+    storeData('logs', []);
+    navigation.navigate("Menu", title = "Menu");
   };
 
   const partyScreenHandler = (val) => {
@@ -114,57 +163,64 @@ const Story = ({ navigation, route }) => {
   };
 
   const renderScreen = () => {
-    if (showDeathScreen) {
-      return (
-        <Death
-          deathCount={deathCount}
-          showDeathScreen={deathScreenHandler}
-          resetGame={resetGameHandler}
-        />
-      );
-    } else if (showPartyScreen) {
-      return (
-        <Party
-          currentScene={currentNode}
-          partyDecision={partyDecision}
-          showPartyScene={partyScreenHandler}
-          font={route.params.font}
-        />
-      );
-    } else if (showEndingScreen) {
-      return (
-        <Ending
-          endingDecision={endingDecision}
-          showEndingScene={endingScreenHandler}
-          font={route.params.font}
-        />
-      )
+    if (!loading && logs) {
+      if (showDeathScreen) {
+        return (
+          <Death
+            deathCount={deathCount}
+            showDeathScreen={deathScreenHandler}
+            resetGame={resetGameHandler}
+          />
+        );
+      } else if (showPartyScreen) {
+        return (
+          <Party
+            currentScene={currentNode}
+            partyDecision={partyDecision}
+            showPartyScene={partyScreenHandler}
+            font={route.params.font}
+          />
+        );
+      } else if (showEndingScreen) {
+        return (
+          <Ending
+            endingDecision={endingDecision}
+            showEndingScene={endingScreenHandler}
+            font={route.params.font}
+          />
+        )
+      } else {
+        return (
+          <View style={styles.container}>
+            <Log
+              data={logs}
+              font={route.params.font}
+            />
+            <Choices
+              children={currentNode?.children}
+              onPress={choiceHandler}
+              storyMap={StoryMap}
+              font={route.params.font}
+              ref={choicesRef}
+            />
+            {modalVisible && <VendingKeypad modalVisible={modalVisible} setModalVisible={setModalVisible} handleVendingInput={handleVendingInput} />}
+            {/* <TouchableHighlight
+              style={styles.openButton}
+              onPress={() => {
+                setModalVisible(true);
+              }}
+            >
+              <Text style={styles.textStyle}>Show Modal</Text>
+            </TouchableHighlight> */}
+          </View>
+        )
+      }
     } else {
       return (
-        <View style={styles.container}>
-          <Log
-            data={logs}
-            font={route.params.font}
-          />
-          <Choices
-            children={currentNode?.children}
-            onPress={choiceHandler}
-            storyMap={StoryMap}
-            font={route.params.font}
-            ref={choicesRef}
-          />
-          {modalVisible && <VendingKeypad modalVisible={modalVisible} setModalVisible={setModalVisible} handleVendingInput={handleVendingInput} />}
-          {/* <TouchableHighlight
-            style={styles.openButton}
-            onPress={() => {
-              setModalVisible(true);
-            }}
-          >
-            <Text style={styles.textStyle}>Show Modal</Text>
-          </TouchableHighlight> */}
-        </View>
+        <View />
       )
     }
+
   }; // The commented button is for testing the vending machine 
 
   return renderScreen();
