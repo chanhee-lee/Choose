@@ -23,25 +23,23 @@ const Party = ({currentScene, partyDecision, showPartyScene, font}) => {
     }
   }
 
-  useEffect(() => {
-    // Plays Opening Scene with medium delay
-    index < partyScene.length && index === 0 && setTimeout(() => {
-      sentenceToDisplay = partyScene[index].label;
-      setIndex(prevIndex => prevIndex + 1);
-    }, Delay.MED_DELAY);
+  // Plays Opening Scene with medium delay
+  index < partyScene.length && index === 0 && setTimeout(() => {
+    sentenceToDisplay = partyScene[index].label;
+    setIndex(prevIndex => prevIndex + 1);
+  }, Delay.MED_DELAY);
 
-    // Plays rest of the scene with specified delay
-    index < partyScene.length && index > 0 && setTimeout(() => {
-      sentenceToDisplay = partyScene[index].label;
-      setIndex(prevIndex => prevIndex + 1);
-    }, Delay.PARTY_DELAY);
+  // Plays rest of the scene with specified delay
+  index < partyScene.length && index > 0 && setTimeout(() => {
+    sentenceToDisplay = partyScene[index].label;
+    setIndex(prevIndex => prevIndex + 1);
+  }, Delay.PARTY_DELAY);
 
-    // End Party Scene with delay
-    index >= partyScene.length && setTimeout(() => {
-      showPartyScene(false);
-      sentenceToDisplay = "";
-    }, Delay.PARTY_DELAY);
-  });
+  // End Party Scene with delay
+  index >= partyScene.length && setTimeout(() => {
+    showPartyScene(false);
+    sentenceToDisplay = "";
+  }, Delay.PARTY_DELAY);
 
   return (
     <View style={styles.container}>

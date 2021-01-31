@@ -18,27 +18,25 @@ const Ending = ({navigation, endingDecision, showEndingScene, font}) => {
   } else if (endingDecision === "Run Away") {
     endingScene = EndingText.goodEnding;
   }
+  
+  // Plays start of ending scene with medium delay
+  index < endingScene.length && index === 0 && setTimeout(() => {
+    sentenceToDisplay = endingScene[index].label;
+    setIndex(prevIndex => prevIndex + 1);
+  }, Delay.MED_DELAY);
 
-  useEffect(() => {
-    // Plays start of ending scene with medium delay
-    index < endingScene.length && index === 0 && setTimeout(() => {
-      sentenceToDisplay = endingScene[index].label;
-      setIndex(prevIndex => prevIndex + 1);
-    }, Delay.MED_DELAY);
+  // Plays rest of the ending scene with specified delay
+  index < endingScene.length && index > 0 && setTimeout(() => {
+    sentenceToDisplay = endingScene[index].label;
+    setIndex(prevIndex => prevIndex + 1);
+  }, Delay.ENDING_DELAY);
 
-    // Plays rest of the ending scene with specified delay
-    index < endingScene.length && index > 0 && setTimeout(() => {
-      sentenceToDisplay = endingScene[index].label;
-      setIndex(prevIndex => prevIndex + 1);
-    }, Delay.ENDING_DELAY);
-
-    // Finish ending scene with delay
-    index >= endingScene.length && setTimeout(() => {
-      showEndingScene(false);
-      sentenceToDisplay = "";
-      navigation.navigate('Menu');
-    }, Delay.ENDING_DELAY);
-  })
+  // Finish ending scene with delay
+  index >= endingScene.length && setTimeout(() => {
+    showEndingScene(false);
+    sentenceToDisplay = "";
+    navigation.navigate('Menu');
+  }, Delay.ENDING_DELAY);
 
   return (
     <View style={styles.container}>

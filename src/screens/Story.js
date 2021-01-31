@@ -27,7 +27,7 @@ const Story = ({ navigation, route }) => {
   const [modalVisible, setModalVisible] = useState(false);
   const [vendingInput, setVendingInput] = useState('');
   const choicesRef = useRef();
-  console.log("REE");
+
   // Populate current node state from storage
   if (Object.keys(currentNode).length === 0 && currentNode.constructor === Object) { // If currentNode is {}
     getData('currentNode').then((data) => {
