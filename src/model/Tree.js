@@ -42,10 +42,10 @@ StoryMap.set('3a1a', { id: '3a1a', label: 'Picture', children: ['3a1b', '3a1d'] 
 StoryMap.set('3a1b', { id: '3a1b', label: 'Front', children: ['3a1c'] });
 StoryMap.set('3a1c', { id: '3a1c', label: '\"Sister\"', children: ['3a1', '3a2'], isNarration: true });
 StoryMap.set('3a1d', { id: '3a1d', label: 'Back', children: ['3a1e'] });
-StoryMap.set('3a1e', { id: '3a1e', label: '06/04', children: ['3a1', '3a2'], isNarration: true, fontStyle: 'italic' });
+StoryMap.set('3a1e', { id: '3a1e', label: '06/04', children: ['3a1', '3a2'], isNarration: true });
 StoryMap.set('3a2', { id: '3a2', label: 'Pills', children: ['3a2a', '3a2c'] });
 StoryMap.set('3a2a', { id: '3a2a', label: 'Eat', children: ['3a2b'] });
-StoryMap.set('3a2b', { id: '3a2b', label: 'Relaxed', children: ['4'], fontStyle: 'italic', isNarration: true });
+StoryMap.set('3a2b', { id: '3a2b', label: 'Relaxed', children: ['4'], isNarration: true });
 StoryMap.set('3a2c', { id: '3a2c', label: 'Ignore', children: ['3a', '3b'] });
 
 StoryMap.set('3b', { id: '3b', label: 'Wardrobe', children: ['3b1', '3b2'] });
@@ -54,11 +54,11 @@ StoryMap.set('3b1b', { id: '3b1b', label: 'Broken', children: ['3a'], isNarratio
 StoryMap.set('3b2', { id: '3b2', label: 'Tie', children: ['3b2b'] });
 StoryMap.set('3b2b', { id: '3b2b', label: 'Looped', children: ['3a'], isNarration: true});
 
-StoryMap.set('4', { id: '4', label: 'Knock Knock', children: ['4a', '4b'], fontStyle: 'italic', isNarration: true});
+StoryMap.set('4', { id: '4', label: 'Knock Knock', children: ['4a', '4b'], isNarration: true});
 StoryMap.set('4b', { id: '4b', label: 'Hide', children: ['4b1'] });
 StoryMap.set('4b1', { id: '4b1', label: '...', children: ['4a','4b'], isNarration: true });
 
-StoryMap.set('4a', { id: '4a', label: 'Open Door', children: ['5a', '5b', '5c'], fontStyle: 'italic', isNarration: true});
+StoryMap.set('4a', { id: '4a', label: 'Open Door', children: ['5a', '5b', '5c']});
 StoryMap.set('5c', { id: '5c', label: 'Examine Door', children: ['5c1'] });
 StoryMap.set('5c1', { id: '5c1', label: '\"304.\"', children: ['5a', '5b'] });
 
@@ -72,7 +72,7 @@ StoryMap.set('5a', { id: '5a', label: 'Left', children: ['6'] });
 StoryMap.set('6', { id: '6', label: 'Bathroom', children: ['6a', '6b'] });
 
 StoryMap.set('6a', { id: '6a', label: 'Approach Mirrors', children: ['6a1'] });
-StoryMap.set('6a1', { id: '6a1', label: 'TRAPPED', children: ['6b'], fontStyle: 'italic', fontColor: 'red' });
+StoryMap.set('6a1', { id: '6a1', label: 'TRAPPED', children: ['6b'], fontColor: 'red' });
 StoryMap.set('6b', { id: '6b', label: 'Check Showers', children: ['6b1'] });
 StoryMap.set('6b1', { id: '6b1', label: 'Dark Figure.', children: ['6b1a', '6b1b'] });
 StoryMap.set('6b1a', { id: '6b1a', label: 'Attack', savePoint: ['4'], isDeath: true });
@@ -89,7 +89,7 @@ StoryMap.set('7c4', { id: '7c4', label: 'Down', savePoint: ['7c'], isDeath: true
 StoryMap.set('7c1', { id: '7c1', label: 'Up', children: ['8a', '8b'] });
 
 StoryMap.set('8b', { id: '8b', label: 'Red Door', children: ['8b1'] });
-StoryMap.set('8b1', { id: '8b1', label: '204', children: ['8b2a', '8b3a', '8b4a'], fontStyle: 'italic', fontColor: '#9b870c' });
+StoryMap.set('8b1', { id: '8b1', label: '204', children: ['8b2a', '8b3a', '8b4a'], fontColor: '#9b870c' });
 StoryMap.set('8b2a', { id: '8b2a', label: 'Desk', children: ['8b2b'] });
 StoryMap.set('8b2b', { id: '8b2b', label: 'Approach', children: ['8b2c'] });
 StoryMap.set('8b2c', { id: '8b2c', label: 'Notebook', children: ['8b2d'] });
@@ -115,12 +115,12 @@ StoryMap.set('8b3j', { id: '8b3j', label: 'Run Out', children: ['9c'] });
 StoryMap.set('8b4a', { id: '8b4a', label: 'Leave', children: ['9c'] });
 
 StoryMap.set('8a', { id: '8a', label: 'Yellow Door', children: ['8a1'] });
-StoryMap.set('8a1', { id: '8a1', label: '201', children: ['8a2'], fontStyle: 'italic', fontColor: '#9b870c' });
+StoryMap.set('8a1', { id: '8a1', label: '201', children: ['8a2'], fontColor: '#9b870c' });
 StoryMap.set('8a2', { id: '8a2', label: 'Enter', children: ['8a3', '8a4'] });
 StoryMap.set('8a3', { id: '8a3', label: 'Lock', children: ['8a5'] });
 StoryMap.set('8a4', { id: '8a4', label: 'Hide', children: ['8a5'] });
 StoryMap.set('8a5', { id: '8a5', label: 'Laundry Room.', children: ['8a6'], isNarration: true });
-StoryMap.set('8a6', { id: '8a6', label: '*Beeping*', children: ['8a7', '8a10'], isNarration: true, fontStyle: 'italic' });
+StoryMap.set('8a6', { id: '8a6', label: '*Beeping*', children: ['8a7', '8a10'], isNarration: true});
 StoryMap.set('8a7', { id: '8a7', label: 'Vending Machine', children: ['8a8'] });
 StoryMap.set('8a8', { id: '8a8', label: 'Use', children: ['8a9'], isVendingMachine: true });
 StoryMap.set('8a9', { id: '8a9', label: 'Vending Machine Screen', children: ['8aa', '8ab', '8ac'], isNarration: true});
@@ -143,7 +143,7 @@ StoryMap.set('15', { id: '15', label: 'Party Scene 1', children: ['16a', '16b'],
 StoryMap.set('16a', { id: '16a', label: 'Take Drink', children: ['17'], isPartyScene: true });
 StoryMap.set('16b', { id: '16b', label: 'Refuse', children: ['17'], isPartyScene: true });
 StoryMap.set('17', { id: '17', label: 'Party Scene 2', children: ['18'], isNarration: true });
-StoryMap.set('18', { id: '18', label: '*Whispers*', children: ['19'], isNarration: true, fontStyle: 'italic' });
+StoryMap.set('18', { id: '18', label: '*Whispers*', children: ['19'], isNarration: true});
 StoryMap.set('19', { id: '19', label: 'Movement/Rustling', children: ['20'], isNarration: true });
 StoryMap.set('20', { id: '20', label: 'Figure', children: ['21a', '21b'], isNarration: true });
 StoryMap.set('21a', { id: '21a', label: 'Run Out', children: ['22'] });
@@ -162,7 +162,7 @@ StoryMap.set('25c', { id: '25c', label: 'Footsetps Close', children: ['25d'], is
 StoryMap.set('25d', { id: '25d', label: 'Knock', children: ['25e'], isNarration: true });
 StoryMap.set('25e', { id: '25e', label: 'Knock', children: ['25f'], isNarration: true, fontSize: Size.MED_FONT });
 StoryMap.set('25f', { id: '25f', label: 'Knock', children: ['25g'], isNarration: true, fontSize: Size.LG_FONT });
-StoryMap.set('25g', { id: '25g', label: 'YOU COWARD', children: ['25h'], fontStyle: 'italic' });
+StoryMap.set('25g', { id: '25g', label: 'YOU COWARD', children: ['25h']});
 StoryMap.set('25h', { id: '25h', label: 'Panic', children: ['25i'] });
 StoryMap.set('25i', { id: '25i', label: 'Suffocating', children: ['25i1', '25i4'], isNarration: true });
 StoryMap.set('25i1', { id: '25i1', label: 'Breathe', children: ['25i2'] });
@@ -170,7 +170,7 @@ StoryMap.set('25i2', { id: '25i2', label: 'Breathe', children: ['25i3'], isNarra
 StoryMap.set('25i3', { id: '25i3', label: 'Breathe', children: ['25j'], isNarration: true });
 StoryMap.set('25i4', { id: '25i4', label: 'Run Out', savePoint: ['25'], isDeath: true })
 StoryMap.set('25j', { id: '25j', label: 'Find Person', children: ['25k'] });
-StoryMap.set('25k', { id: '25k', label: 'Room 302', children: ['25l'], fontStyle: 'italic' });
+StoryMap.set('25k', { id: '25k', label: 'Room 302', children: ['25l']  });
 StoryMap.set('25l', { id: '25l', label: 'Enter', children: ['25m'] });
 StoryMap.set('25m', { id: '25m', label: 'Person', children: ['25n'], isNarration: true });
 StoryMap.set('25n', { id: '25n', label: 'Hanging', children: ['25o'], isNarration: true });
@@ -180,7 +180,7 @@ StoryMap.set('25q', { id: '25q', label: 'Bedsheets', children: ['25r'] });
 StoryMap.set('25r', { id: '25r', label: 'Window', children: ['25s', '25s1'] });
 StoryMap.set('25s', { id: '25s', label: 'Escape Window', children: ['25t'] });
 StoryMap.set('25s1', { id: '25s1', label: 'Leave Room', children: ['25s2'] });
-StoryMap.set('25s2', { id: '25s2', label: 'Figure', savePoint: ['25l'], isDeath: true });
+StoryMap.set('25s2', { id: '25s2', label: 'Figure', savePoint: ['25k'], isDeath: true });
 StoryMap.set('25t', { id: '25t', label: 'Fall', children: ['25u'], isNarration: true });
 StoryMap.set('25u', { id: '25u', label: 'Legs Broken', children: ['25v'], isNarration: true });
 StoryMap.set('25v', { id: '25v', label: 'Crawl Away', children: ['25w'], isEndingScene: true });
