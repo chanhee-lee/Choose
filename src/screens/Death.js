@@ -35,40 +35,37 @@ const Death = ({ deathCount, showDeathScreen, resetGame }) => {
     delay = Delay.FAST_DELAY;
   }
 
-  // Adds words to the screen with a delay
-  useEffect(() => {
-    let word = DeathText[deathCount][index];
+  let word = DeathText[deathCount][index];
 
-    // Death Screens
-    index < DeathText[deathCount].length && deathCount < 9 && setTimeout(() => {
-      wordsList.push(<Text key={index} style={{...styles.regularText, ...generateRandomPosition()}}>{word}</Text>);
-      setIndex(prevIndex => prevIndex + 1);
+  // Death Screens
+  index < DeathText[deathCount].length && deathCount < 9 && setTimeout(() => {
+    wordsList.push(<Text key={index} style={{ ...styles.regularText, ...generateRandomPosition() }}>{word}</Text>);
+    setIndex(prevIndex => prevIndex + 1);
 
-      // Clears wordsList for Deaths 1-6
-      wordsList = delay === Delay.SLOW_DELAY ? [] : wordsList;
-    }, delay);
+    // Clears wordsList for Deaths 1-6
+    wordsList = delay === Delay.SLOW_DELAY ? [] : wordsList;
+  }, delay);
 
-    // Game Over Screen
-    index < DeathText[deathCount].length && deathCount === 9 && setTimeout(() => {
-      wordsList.push(<Text key={index} style={{...styles.gameOverText}}>{word}</Text>)
-      setIndex(prevIndex => prevIndex + 1);
-      resetGame();
-    }, delay);
+  // Game Over Screen
+  index < DeathText[deathCount].length && deathCount === 9 && setTimeout(() => {
+    wordsList.push(<Text key={index} style={{ ...styles.gameOverText }}>{word}</Text>)
+    setIndex(prevIndex => prevIndex + 1);
+    resetGame();
+  }, delay);
 
-    // Stops showing death screen with delay
-    index >= DeathText[deathCount].length && setTimeout(() => {
-      showDeathScreen(false);
-      wordsList = [];
-      return () => setIndex(0);
-    }, Delay.ENDING_DELAY);
-  });
+  // Stops showing death screen with delay
+  index >= DeathText[deathCount].length && setTimeout(() => {
+    showDeathScreen(false);
+    wordsList = [];
+    return () => setIndex(0);
+  }, Delay.ENDING_DELAY);
 
   return (
     <ImageBackground source={require('../../assets/darkBackground.jpg')} style={containerStyle}>
       <View>
         {wordsList}
       </View>
-    </ImageBackground> 
+    </ImageBackground>
   )
 };
 

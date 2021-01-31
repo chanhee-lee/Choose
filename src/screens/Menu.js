@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Text, StyleSheet, View, Alert } from 'react-native';
 import MenuButton from '../components/MenuButton';
-import {Color} from '../constants';
+import { Color } from '../constants';
+import StoryMap from '../model/Tree';
 import {
   useFonts,
   Cabin_500Medium,
@@ -9,21 +10,16 @@ import {
   Cabin_700Bold,
   Cabin_700Bold_Italic
 } from '@expo-google-fonts/cabin';
-import { storeData } from '../model/DataStorage';
+import { storeData, getData } from '../model/DataStorage';
 import { AppLoading } from 'expo';
 
 const Menu = (props) => {
-  // States 
-  const [deathCounter, setDeathCounter] = useState(0);
-  const [settings, setSettings] = useState({});
-  const [checkpoint, setCheckpoint] = useState({});
-  const [achievements, setAchievements] = useState({});
-
-  // Helper Functions
   function resetGame() {
-    setDeathCounter(0);
-    setSettings({});
-    setCheckpoint({});
+    storeData('deathCount', 0);
+    storeData('settings', {});
+    storeData('checkpoint', {});
+    storeData('currentNode', StoryMap.get('0'));
+    storeData('logs', []);
   }
 
   let [fontsLoaded] = useFonts({
@@ -37,44 +33,41 @@ const Menu = (props) => {
     return Object.keys(obj).length === 0;
   }
 
+  // Use useEffect to load shit
+
   // Main Functions
   function newStory() {
     let reset = true;
-    if (!isEmpty(checkpoint)) { // if there's a story, ask first 
-      Alert.alert(
-        "Confirm",
-        "Are you sure you want to start a new story? This will reset your previous progress",
-        [
-          {
-            text: "Cancel",
-            onPress: () => reset = false,
-            style: "cancel"
-          },
-          {
-            text: "OK",
-            onPress: () => {
-              resetGame();
-              props.navigation.navigate('New Story', {
-                deathCounter: deathCounter,
-                setDeathCounter: setDeathCounter,
-                checkpoint: checkpoint,
-                setCheckpoint: setCheckpoint
-              })
+    resetGame();
+    getData('currentNode').then((data) => {
+      if (data.id !== "0") { // if there's a story, ask first 
+        Alert.alert(
+          "Confirm",
+          "Are you sure you want to start a new story? This will reset your previous progress",
+          [
+            {
+              text: "Cancel",
+              onPress: () => reset = false,
+              style: "cancel"
+            },
+            {
+              text: "OK",
+              onPress: () => {
+                resetGame();
+                props.navigation.navigate('New Story', {
+                  font: styles.cabinFont
+                })
+              }
             }
-          }
-        ],
-        { cancelable: false }
-      )
-    } else {
-      props.navigation.navigate('New Story', {
-        deathCounter: deathCounter,
-        setDeathCounter: setDeathCounter,
-        checkpoint: checkpoint,
-        setCheckpoint: setCheckpoint,
-        font: styles.cabinFont
-      })
-    }
-    // storeData('checkpoint', {"hello": "hello"});
+          ],
+          { cancelable: false }
+        )
+      } else {
+        props.navigation.navigate('New Story', {
+          font: styles.cabinFont
+        })
+      }
+    })
   }
 
   return (
@@ -88,10 +81,7 @@ const Menu = (props) => {
         />
         <MenuButton
           onPress={() => props.navigation.navigate('Continue Story', {
-            deathCounter: deathCounter,
-            setDeathCounter: setDeathCounter,
-            checkpoint: checkpoint,
-            setCheckpoint: setCheckpoint,
+            isContinue: true,
             font: Cabin_500Medium
           })}
           style={styles.button}

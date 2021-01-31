@@ -1,10 +1,23 @@
 import React, { useState } from 'react';
-import { AsyncStorage } from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const storeData = async (id, obj) => {
-    try {
-        await AsyncStorage.setItem(id, obj);
-    } catch (error) {
-        console.log(error.message);
+    if (id && obj) {
+        try {
+            await AsyncStorage.setItem(id, JSON.stringify(obj));
+        } catch (error) {
+            console.log("Failed to store: ", error.message);
+        }
+    }
+}
+
+export const getData = async (id) => {
+    if (id) {
+        try {
+            const data = await AsyncStorage.getItem(id);
+            return JSON.parse(data);
+        } catch (error) {
+            console.log("Failed to get: ", error.message);
+        }
     }
 }
