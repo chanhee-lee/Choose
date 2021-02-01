@@ -4,43 +4,49 @@ import { StatusBar } from 'expo-status-bar';
 import { Color, Delay, Size } from '../constants';
 import { EndingText } from '../cutSceneText';
 
-let sentenceToDisplay = "";
+let index = 0;
 let endingScene = [];
+let sentence;
 
-const Ending = ({navigation, endingDecision, showEndingScene, font}) => {
-  const [index, setIndex] = useState(0);
+const Ending = ({navigation, endingDecision, showEndingScene, resetGame, font}) => {
+  const [sentenceToDisplay, setSentenceToDisplay] = useState([]);
+
+  useEffect(() => {
+    index += 1;
+  }, [sentenceToDisplay])
 
   // Sets up the Ending Scene text
-  if (endingDecision === "Drive Away") {
-    endingScene = EndingText.badEnding1;
-  } else if (endingDecision === "Crawl Away") {
-    endingScene = EndingText.badEnding2
-  } else if (endingDecision === "Run Away") {
-    endingScene = EndingText.goodEnding;
+  if (index === 0) {
+    if (endingDecision === "Drive Away") {
+      endingScene = EndingText.badEnding1;
+    } else if (endingDecision === "Crawl Away") {
+      endingScene = EndingText.badEnding2
+    } else if (endingDecision === "Run Away") {
+      endingScene = EndingText.goodEnding;
+    }
   }
-  
-  // Plays start of ending scene with medium delay
-  index < endingScene.length && index === 0 && setTimeout(() => {
-    sentenceToDisplay = endingScene[index].label;
-    setIndex(prevIndex => prevIndex + 1);
-  }, Delay.MED_DELAY);
+
+  if (index >= endingScene.length) {
+    sentence = "";
+  } else {
+    sentence = endingScene[index].label;
+  }
 
   // Plays rest of the ending scene with specified delay
-  index < endingScene.length && index > 0 && setTimeout(() => {
-    sentenceToDisplay = endingScene[index].label;
-    setIndex(prevIndex => prevIndex + 1);
+  index < endingScene.length && setTimeout(() => {
+    setSentenceToDisplay(<Text style={{...styles.text, ...font}}>{sentence}</Text>);
   }, Delay.ENDING_DELAY);
 
   // Finish ending scene with delay
   index >= endingScene.length && setTimeout(() => {
-    showEndingScene(false);
-    sentenceToDisplay = "";
+    resetGame();
+    index = 0;
     navigation.navigate('Menu');
   }, Delay.ENDING_DELAY);
 
   return (
     <View style={styles.container}>
-      <Text style={{...styles.text, ...font}}>{sentenceToDisplay}</Text>
+      {sentenceToDisplay}
     </View>
   );
 };

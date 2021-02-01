@@ -4,11 +4,16 @@ import { View, StyleSheet, Text } from 'react-native';
 import { Color, Delay, Size } from '../constants';
 import { PartyText } from '../cutSceneText';
 
-let sentenceToDisplay = "";
 let partyScene = [];
+let sentence;
+let index = 0;
 
 const Party = ({currentScene, partyDecision, showPartyScene, font}) => {
-  const [index, setIndex] = useState(0);
+  const [sentenceToDisplay, setSentenceToDisplay] = useState([]);
+
+  useEffect(() => {
+    index += 1;
+  }, [sentenceToDisplay])
 
   // Sets up Party Scene text
   if (currentScene?.label === "Party Scene 1") {
@@ -23,27 +28,31 @@ const Party = ({currentScene, partyDecision, showPartyScene, font}) => {
     }
   }
 
+  if (index >= partyScene.length) {
+    sentence = "";
+  } else {
+    sentence = partyScene[index].label;
+  }
+
   // Plays Opening Scene with medium delay
   index < partyScene.length && index === 0 && setTimeout(() => {
-    sentenceToDisplay = partyScene[index].label;
-    setIndex(prevIndex => prevIndex + 1);
+    setSentenceToDisplay(<Text style={{...styles.text, ...font}}>{sentence}</Text>)
   }, Delay.MED_DELAY);
 
   // Plays rest of the scene with specified delay
   index < partyScene.length && index > 0 && setTimeout(() => {
-    sentenceToDisplay = partyScene[index].label;
-    setIndex(prevIndex => prevIndex + 1);
+    setSentenceToDisplay(<Text style={{...styles.text, ...font}}>{sentence}</Text>)
   }, Delay.PARTY_DELAY);
 
   // End Party Scene with delay
   index >= partyScene.length && setTimeout(() => {
+    index = 0;
     showPartyScene(false);
-    sentenceToDisplay = "";
   }, Delay.PARTY_DELAY);
 
   return (
     <View style={styles.container}>
-      <Text style={{...styles.text, ...font}}>{sentenceToDisplay}</Text>
+      {sentenceToDisplay}
     </View>
   );
 };

@@ -8,7 +8,8 @@ import { DeathText } from '../cutSceneText';
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;
 
-let wordsList = [];
+// let wordsList = [];
+let index = 0;
 let delay = Delay.SLOW_DELAY;
 let containerStyle;
 
@@ -20,8 +21,8 @@ const generateRandomPosition = () => {
   }
 };
 
-const Death = ({ deathCount, showDeathScreen, resetGame }) => {
-  const [index, setIndex] = useState(0);
+const Death = ({ deathCount, showDeathScreen, resetGame, navigation }) => {
+  const [wordsList, setWordsList] = useState([]);
 
   // Sets container style for Game Over/Regular screen
   if (deathCount === 9) {
@@ -34,31 +35,40 @@ const Death = ({ deathCount, showDeathScreen, resetGame }) => {
   if (deathCount === 7 || deathCount === 8 || deathCount === 9) {
     delay = Delay.FAST_DELAY;
   }
+  useEffect(() => {
+    index += 1;
+  }, [wordsList])
 
   let word = DeathText[deathCount][index];
 
   // Death Screens
   index < DeathText[deathCount].length && deathCount < 9 && setTimeout(() => {
-    wordsList.push(<Text key={index} style={{ ...styles.regularText, ...generateRandomPosition() }}>{word}</Text>);
-    setIndex(prevIndex => prevIndex + 1);
+    setWordsList(prevWords => {
+      const newWord = <Text key={index} style={{ ...styles.regularText, ...generateRandomPosition() }}>{word}</Text>;
 
-    // Clears wordsList for Deaths 1-6
-    wordsList = delay === Delay.SLOW_DELAY ? [] : wordsList;
+      // Clears wordsList for Deaths 1-6
+      return delay === Delay.SLOW_DELAY ? [newWord] : [...prevWords, newWord]
+    })
   }, delay);
 
   // Game Over Screen
   index < DeathText[deathCount].length && deathCount === 9 && setTimeout(() => {
-    wordsList.push(<Text key={index} style={{ ...styles.gameOverText }}>{word}</Text>)
-    setIndex(prevIndex => prevIndex + 1);
-    resetGame();
+    setWordsList(<Text key={index} style={{ ...styles.gameOverText }}>{word}</Text>)
   }, delay);
 
   // Stops showing death screen with delay
   index >= DeathText[deathCount].length && setTimeout(() => {
-    showDeathScreen(false);
-    wordsList = [];
-    return () => setIndex(0);
+    if (deathCount === 9) {
+      delay = Delay.SLOW_DELAY;
+      index = 0;
+      resetGame();
+      navigation.navigate('Menu');
+    } else {
+      index = 0;
+      showDeathScreen(false);
+    }
   }, Delay.ENDING_DELAY);
+
 
   return (
     <ImageBackground source={require('../../assets/darkBackground.jpg')} style={containerStyle}>

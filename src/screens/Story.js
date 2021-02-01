@@ -46,7 +46,9 @@ const Story = ({ navigation, route }) => {
   // Populate death state from storage
   if (deathCount === -1) {
     getData('deathCount').then(data => {
-      setDeathCount(data);
+      if (typeof(data) === 'string') {
+        setDeathCount(parseInt(data));
+      }
     })
   }
 
@@ -59,6 +61,13 @@ const Story = ({ navigation, route }) => {
     setLogs(prevLogs => {
       storeData('logs', [...prevLogs, node])
       return [...prevLogs, node];
+    });
+  }
+
+  const updateDeathCount = () => {
+    setDeathCount(prevCount => {
+      storeData('deathCount', (prevCount + 1).toString());
+      return prevCount + 1;
     });
   }
 
@@ -136,7 +145,7 @@ const Story = ({ navigation, route }) => {
   };
 
   const deathCountHandler = () => {
-    setDeathCount(prevCount => prevCount + 1);
+    updateDeathCount();
   };
 
   const deathScreenHandler = (val) => {
@@ -144,21 +153,19 @@ const Story = ({ navigation, route }) => {
   };
 
   const resetGameHandler = () => {
-    storeData('deathCount', 0);
+    storeData('deathCount', '0');
     storeData('settings', {});
     storeData('checkpoint', {});
     storeData('currentNode', StoryMap.get('0'));
     storeData('logs', []);
-    navigation.navigate("Menu", title = "Menu");
   };
 
   const partyScreenHandler = (val) => {
     setShowPartyScreen(val);
   };
 
-  const endingScreenHandler = async (val) => {
+  const endingScreenHandler = (val) => {
     setShowEndingScreen(val);
-    resetGameHandler();
   };
 
   const renderScreen = () => {
@@ -169,6 +176,7 @@ const Story = ({ navigation, route }) => {
             deathCount={deathCount}
             showDeathScreen={deathScreenHandler}
             resetGame={resetGameHandler}
+            navigation={navigation}
           />
         );
       } else if (showPartyScreen) {
@@ -187,6 +195,7 @@ const Story = ({ navigation, route }) => {
             showEndingScene={endingScreenHandler}
             font={route.params.font}
             navigation={navigation}
+            resetGame={resetGameHandler}
           />
         )
       } else {
