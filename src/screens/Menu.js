@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import { Text, StyleSheet, View, Alert } from 'react-native';
 import MenuButton from '../components/MenuButton';
@@ -20,7 +20,12 @@ const Menu = (props) => {
 
   if (isEmpty(currentNode)) {
     getData('currentNode').then((data) => {
-      setCurrentNode(data);
+      if (data === null) {
+        setCurrentNode(StoryMap.get('0'));
+        storeData('currentNode', StoryMap.get(0));
+      } else {
+        setCurrentNode(data);
+      }
     })
   }
 
@@ -33,7 +38,7 @@ const Menu = (props) => {
   }, [isFocused])
 
   function resetGame() {
-    storeData('deathCount', 0);
+    storeData('deathCount', '0');
     storeData('settings', {});
     storeData('checkpoint', {});
     storeData('currentNode', StoryMap.get('0'));
@@ -48,7 +53,11 @@ const Menu = (props) => {
   });
 
   function isEmpty(obj) {
-    return Object.keys(obj).length === 0;
+    if (obj) {
+      return Object.keys(obj).length === 0;
+    } else {
+      return null;
+    }
   }
 
   // Use useEffect to load shit
@@ -57,7 +66,7 @@ const Menu = (props) => {
   function newStory() {
     let reset = true;
     getData('currentNode').then((data) => {
-      if (data.id !== "0") { // if there's a story, ask first 
+      if (data?.id !== "0") { // if there's a story, ask first 
         Alert.alert(
           "Confirm",
           "Are you sure you want to start a new story? This will reset your previous progress",
@@ -97,7 +106,7 @@ const Menu = (props) => {
           style={styles.button}
         />
         <MenuButton
-          disabled={currentNode.id === '0'}
+          disabled={currentNode?.id === '0'}
           onPress={() => props.navigation.navigate('Continue Story', {
             isContinue: true,
             font: Cabin_500Medium
